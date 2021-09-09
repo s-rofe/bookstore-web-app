@@ -1,9 +1,12 @@
 """Initialize Flask app."""
 
 from flask import Flask, render_template
-
-# TODO: Access to the books should be implemented via the repository pattern and using blueprints, so this can not stay here!
+from pathlib import Path
+import library.adapters.repository as repo
+from library.adapters.jsondatareader import BooksJSONReader
+from library.adapters.memory_repository import MemoryRepository, populate
 from library.domain.model import Book
+
 
 # TODO: Access to the books should be implemented via the repository pattern and using blueprints, so this can not stay here!
 def create_some_book():
@@ -19,6 +22,20 @@ def create_some_book():
 
 def create_app():
     app = Flask(__name__)
+
+    # Gets correct path of the JSON data files
+    book_data_path = Path('library') / 'adapters' / 'data' / 'comic_books_excerpt.json'
+    author_data_path = Path('library') / 'adapters' / 'data' / 'book_author_excerpt.json'
+    read_books = BooksJSONReader(book_data_path, author_data_path)
+
+    # Create the repo object and populate it (for now only does books)
+    repo.repo_instance = MemoryRepository()
+    populate(read_books.dataset_of_books, repo.repo_instance)
+
+    with app.app_context():
+        # Register blueprints.
+        from .book import book
+        app.register_blueprint(book.book_blueprint)
 
     @app.route('/')
     def home():
