@@ -18,3 +18,7 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def add_book(self, book: Book):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_all_books(self):
+        raise NotImplementedError

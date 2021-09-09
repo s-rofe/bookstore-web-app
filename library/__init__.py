@@ -24,13 +24,19 @@ def create_app():
     app = Flask(__name__)
 
     # Gets correct path of the JSON data files
-    book_data_path = Path('library') / 'adapters' / 'data' / 'comic_books_excerpt.json'
-    author_data_path = Path('library') / 'adapters' / 'data' / 'book_author_excerpt.json'
+    book_data_path = Path('library/adapters/data/comic_books_excerpt.json')
+    author_data_path = Path('library/adapters/data/book_authors_excerpt.json')
     read_books = BooksJSONReader(book_data_path, author_data_path)
+    if author_data_path.is_file() and book_data_path.is_file():
+        read_books.read_json_files()
+    else:
+        print("Data files not found")
 
     # Create the repo object and populate it (for now only does books)
     repo.repo_instance = MemoryRepository()
     populate(read_books.dataset_of_books, repo.repo_instance)
+    # test books have been added the the repo
+    # print(repo.repo_instance.get_all_books())
 
     with app.app_context():
         # Register blueprints.

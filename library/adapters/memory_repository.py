@@ -10,6 +10,10 @@ class MemoryRepository(AbstractRepository):
     def __init__(self):
         self.__books = list()
 
+    # testing
+    def get_all_books(self):
+        return self.__books
+
     def get_book_by_id(self):
         return next((book for book in self.__books if book.book_id == id), None)
 
