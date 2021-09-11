@@ -26,3 +26,8 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_number_of_books(self):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_page_of_books(self, cursor, books_per_page):
+        raise NotImplementedError
+

@@ -14,8 +14,18 @@ def get_book_by_id(book_id: int, repo: AbstractRepository):
     if book is None:
         raise NonExistentBookException
 
-    return book_to_dict(book)
+    return book
 
 
-def book_to_dict(books: Iterable[Book]):
-    return [book_to_dict(book) for book in books]
+def get_all_books(repo: AbstractRepository):
+    return repo.get_all_books()
+
+
+def get_page_of_books(cursor, books_per_page, repo: AbstractRepository):
+    books = repo.get_page_of_books(cursor, books_per_page)
+    return books
+
+
+def get_number_of_books(repo: AbstractRepository):
+    return repo.get_number_of_books()
+

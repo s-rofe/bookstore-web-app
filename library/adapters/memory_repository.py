@@ -22,6 +22,12 @@ class MemoryRepository(AbstractRepository):
     def get_number_of_books(self):
         return len(self.__books)
 
+    def get_page_of_books(self, cursor, books_per_page):
+        if cursor * books_per_page + books_per_page >= len(self.__books):
+            return self.__books[cursor * books_per_page:]
+        else:
+            return self.__books[cursor * books_per_page: cursor * books_per_page + books_per_page]
+
 
 def populate(book_dataset, repo):
     for book in book_dataset:
