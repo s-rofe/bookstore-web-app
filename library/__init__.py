@@ -35,8 +35,6 @@ def create_app():
     # Create the repo object and populate it (for now only does books)
     repo.repo_instance = MemoryRepository()
     populate(read_books.dataset_of_books, repo.repo_instance)
-    # test books have been added the the repo
-    # print(repo.repo_instance.get_all_books())
 
     with app.app_context():
         # Register blueprints.

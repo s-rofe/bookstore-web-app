@@ -22,3 +22,6 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_all_books(self):
         raise NotImplementedError
+
+    def get_number_of_books(self):
+        raise NotImplementedError
