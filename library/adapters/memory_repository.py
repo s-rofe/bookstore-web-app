@@ -28,6 +28,26 @@ class MemoryRepository(AbstractRepository):
         else:
             return self.__books[cursor * books_per_page: cursor * books_per_page + books_per_page]
 
+    def get_books_with_author(self, author_name):
+        # For each books authors, if there is an author named the same as the author name passed, add it to the list
+        book_list = []
+        for book in self.__books:
+            for author in book.authors:
+                if author.full_name == author_name:
+                    book_list.append(book)
+        return book_list
+
+    def get_books_with_publisher(self, publisher):
+        book_list = []
+        for book in self.__books:
+            if book.publisher.name == publisher:
+                book_list.append(book)
+        return book_list
+
+    def get_books_with_release_year(self, release_year):
+        book_list = [book for book in self.__books if book.release_year == release_year]
+        return book_list
+
 
 def populate(book_dataset, repo):
     for book in book_dataset:

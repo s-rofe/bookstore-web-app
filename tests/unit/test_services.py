@@ -12,3 +12,13 @@ def test_get_book_pages(in_memory_repo):
     book_section_one = book_services.get_page_of_books(1, 4, in_memory_repo)
     assert book_list[4] == book_section_one[0]
     assert book_list[7] == book_section_one[-1]
+
+
+def test_get_books_by_attribute(in_memory_repo):
+    book_list = in_memory_repo.get_all_books()
+    books_with_author = book_services.get_books_with_author("Tomas Aira", in_memory_repo)
+    # assert len(books_with_author) == 2
+    books_with_year = book_services.get_books_with_release_year(2016, in_memory_repo)
+    assert len(books_with_year) == 5
+    books_with_pub = book_services.get_books_with_publisher("Avatar Press", in_memory_repo)
+    assert len(books_with_pub) == 4
