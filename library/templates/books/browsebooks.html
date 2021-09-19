@@ -4,10 +4,11 @@
     <button class="previous" onclick="location.href='{{prev_book_page_url}}'">&laquo; Previous</button>
     <button class="next" onclick="location.href='{{next_book_page_url}}'">Next &raquo;</button>
 
-
-    <h2>{{ books.book_title }}</h2>
-    <p>Release year: <b>{{ books.release_year }}</b></p>
+    {% for book in books %}
+    <h2>{{ book.books_title }}</h2>
+    <p>Release year: <b>{{ release_year }}</b></p>
     <p>Description: {{ books.description }}</p>
+    {% endfor %}
 
 </body>
 {% endblock %}
