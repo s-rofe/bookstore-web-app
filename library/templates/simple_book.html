@@ -1,5 +1,12 @@
 {% extends 'layout.html' %} {% block content %}
+{% for body in articles %}
+{% print(1) %}
+{% endfor %}
 <body>
+
+    <button class="previous" onclick="location.href='{{prev_book_page_url}}'">&laquo; Previous</button>
+    <button class="next" onclick="location.href='{{next_book_page_url}}'">Next &raquo;</button>
+
 
     <h2>{{ book.title }}</h2>
     <p>Release year: <b>{{ book.release_year }}</b></p>
