@@ -75,3 +75,7 @@ class MemoryRepository(AbstractRepository):
 def populate(book_dataset, repo):
     for book in book_dataset:
         repo.add_book(book)
+        for author in book.authors:
+            repo.add_author(author)
+        repo.add_publisher(book.publisher)
+        repo.add_release_year(book.release_year)
