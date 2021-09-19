@@ -22,11 +22,13 @@ class MemoryRepository(AbstractRepository):
     def get_number_of_books(self):
         return len(self.__books)
 
-    def get_page_of_books(self, cursor, books_per_page):
+    def get_page_of_books(self, cursor, books_per_page, book_list=None):
+        if book_list is None:
+            book_list = self.__books
         if cursor * books_per_page + books_per_page >= len(self.__books):
-            return self.__books[cursor * books_per_page:]
+            return book_list[cursor * books_per_page:]
         else:
-            return self.__books[cursor * books_per_page: cursor * books_per_page + books_per_page]
+            return book_list[cursor * books_per_page: cursor * books_per_page + books_per_page]
 
     def get_books_with_author(self, author_name):
         # For each books authors, if there is an author named the same as the author name passed, add it to the list

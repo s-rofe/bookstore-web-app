@@ -21,8 +21,11 @@ def get_all_books(repo: AbstractRepository):
     return repo.get_all_books()
 
 
-def get_page_of_books(cursor, books_per_page, repo: AbstractRepository):
-    books = repo.get_page_of_books(cursor, books_per_page)
+def get_page_of_books(cursor, books_per_page, repo: AbstractRepository, book_list=None):
+    if book_list is None:
+        books = repo.get_page_of_books(cursor, books_per_page)
+    else:
+        books = repo.get_page_of_books(cursor, books_per_page, book_list)
     return books
 
 
