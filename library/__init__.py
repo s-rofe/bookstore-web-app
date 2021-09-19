@@ -42,11 +42,7 @@ def create_app():
         app.register_blueprint(book.book_blueprint)
         from .search import search
         app.register_blueprint(search.search_blueprint)
-
-    @app.route('/')
-    def home():
-        some_book = create_some_book()
-        # Use Jinja to customize a predefined html page rendering the layout for showing a single book.
-        return render_template('simple_book.html', book=some_book)
+        from .home import home
+        app.register_blueprint(home.home_blueprint)
 
     return app
