@@ -23,13 +23,14 @@ footer {
   color: white;
   position: absolute;
   bottom: auto;
-  width: 100%;
+  width: 98.7%;
   overflow: hidden;
 }
 
 .navigation-bar {
     overflow: hidden;
     background-color: rgb(13, 110, 158, 0.8);
+    border-radius: 10px;
 }
 .navigation-bar a {
     float: left;
@@ -38,6 +39,7 @@ footer {
     padding: 20px 16px;
     text-decoration: none;
     font-size: 17px;
+
 
 }
 .navigation-bar a:hover {
