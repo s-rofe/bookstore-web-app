@@ -22,6 +22,7 @@ def create_some_book():
 
 def create_app():
     app = Flask(__name__)
+    app.config.from_object('config.Config')
 
     # Gets correct path of the JSON data files
     book_data_path = Path('library/adapters/data/comic_books_excerpt.json')

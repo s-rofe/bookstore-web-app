@@ -24,7 +24,10 @@ def is_publisher(search_term, repo: AbstractRepository):
 
 def is_release_year(search_term, repo: AbstractRepository):
     release_years = repo.get_release_years()
-    if int(search_term) == ValueError:
+
+    try:
+        int(search_term)
+    except:
         return False
     else:
         if int(search_term) in release_years:

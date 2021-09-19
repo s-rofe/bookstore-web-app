@@ -4,6 +4,9 @@
         <a>About Us</a>
         <a>Register</a>
         <a>Login</a>
-        <input placeholder="Search">
+        <form method="post" action="{{ url_for('search_bp.search') }}">
+            <input type="text" name="search_term" id="search_term" placeholder="Search">
+            <button type="submit">Search</button>
+        </form>
     </nav>
 </div>
