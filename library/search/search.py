@@ -9,16 +9,16 @@ search_blueprint = Blueprint("search_bp", __name__)
 
 @search_blueprint.route('/search', methods=['GET', 'POST'])
 def search():
-    search_term = request.args.get('search_term')
-    print(search_term)
+    search_term = request.form['search_term']
+    print(type(search_term))
     if services.is_author(search_term, repo.repo_instance):
-        return redirect(url_for('book_bp.book_by_author', author_name=search_term))
+        return redirect(url_for('book_bp.books_by_author', author_name=search_term))
 
     elif services.is_publisher(search_term, repo.repo_instance):
-        return redirect(url_for('book_bp.book_by_publisher', publisher_name=search_term))
+        return redirect(url_for('book_bp.books_by_publisher', publisher_name=search_term))
 
     elif services.is_release_year(search_term, repo.repo_instance):
-        return redirect(url_for('book_bp.book_by_release_year', release_year=search_term))
+        return redirect(url_for('book_bp.books_by_release_year', release_year=search_term))
 
     else:
         return render_template('nobooksfound.html')
