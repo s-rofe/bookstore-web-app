@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="{{ url_for('static', filename='9.png') }}">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Book Library</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='css/main.css') }}"
     />
+
 </head>
-  <body>
+  <body background="{{ url_for('static', filename='10.jpg') }}">
     <div id="body">
       <!-- Include navigation partial. -->
       {% include 'navigation.html' %}
-      <hr>
+      <br>
+      <br>
+
       <div id="content-2">
         <!-- Include header partial. -->
         {% include 'header.html' %}
       </div>
-      <hr>
+      <br>
+      <br>
       <div id="container">
           <!-- Main content block to be supplied by page. -->
           {% block content %} {% endblock %}
 
+
       </div>
-
-
-
+      <br>
+      <br>
+      <br>
         <div id="footer">
         {% include 'footer.html' %}
         </div>

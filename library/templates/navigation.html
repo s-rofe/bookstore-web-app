@@ -1,7 +1,8 @@
 <div class="navigation-bar">
     <nav>
-        <a class="active">Home</a>
+        <a onclick="href='http://localhost:5000/'" >Home</a>
         <a>About Us</a>
+        <a onclick="location.href='{{'browse_all_books'}}'">Books</a>
         <a>Register</a>
         <a>Login</a>
         <form method="post" action="{{ url_for('search_bp.search') }}">
