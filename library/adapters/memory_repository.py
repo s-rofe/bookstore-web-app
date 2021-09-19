@@ -1,5 +1,6 @@
 from library.adapters.repository import AbstractRepository
-from library.domain.model import Book, Author, Publisher
+from library.domain.model import Book, Author, Publisher, User
+from werkzeug.security import generate_password_hash
 
 
 class MemoryRepository(AbstractRepository):
@@ -11,6 +12,7 @@ class MemoryRepository(AbstractRepository):
         self.__authors = list()
         self.__publishers = list()
         self.__release_years = list()
+        self.__users = list()
 
     # testing
     def get_all_books(self):
@@ -36,6 +38,12 @@ class MemoryRepository(AbstractRepository):
 
     def get_release_years(self):
         return self.__release_years
+
+    def add_user(self, user: User):
+        self.__users.append(user)
+
+    def get_user(self, user_name):
+        return next((user for user in self.__users if user.user_name == user_name), None)
 
     def get_book_by_id(self, id: int):
         return next((book for book in self.__books if book.book_id == id), None)
@@ -72,7 +80,18 @@ class MemoryRepository(AbstractRepository):
         return book_list
 
 
+def load_users(repo):
+    # User names are changed to lowercase in the model
+    user1 = User(user_name="Test1", password=generate_password_hash("Test1@abc"))
+    user2 = User(user_name="Test2", password=generate_password_hash("Test2@abc"))
+    user3 = User(user_name="Test3", password=generate_password_hash("Test3@abc"))
+    repo.add_user(user1)
+    repo.add_user(user2)
+    repo.add_user(user3)
+
+
 def populate(book_dataset, repo):
+    load_users(repo)
     for book in book_dataset:
         repo.add_book(book)
         for author in book.authors:

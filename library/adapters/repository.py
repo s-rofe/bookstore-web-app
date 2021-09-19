@@ -40,6 +40,14 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def add_user(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_user(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def get_all_books(self):
         raise NotImplementedError
 
