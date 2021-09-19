@@ -31,7 +31,7 @@ def browse_all_books():
         prev_book_page_url = url_for('book_bp.browse_all_books', cursor=cursor - 1)
         first_book_page_url = url_for('book_bp.browse_all_books')
 
-    if cursor * books_per_page < total_books:
+    if cursor * books_per_page + books_per_page < total_books:
         next_book_page_url = url_for('book_bp.browse_all_books', cursor=cursor + 1)
 
         last_cursor = (total_books // books_per_page) - 1
@@ -53,8 +53,6 @@ def books_by_author(author_name):
     books_per_page = 4
     cursor = request.args.get('cursor')
 
-    total_books = services.get_number_of_books(repo.repo_instance)
-
     # cursor to section the books to be displayed from the list
     if cursor is None:
         # If no cursor set up yet, initialize cursor to start at the beginning
@@ -63,6 +61,7 @@ def books_by_author(author_name):
         cursor = int(cursor)
 
     book_list = services.get_books_with_author(author_name, repo.repo_instance)
+    total_books = len(book_list)
     books_by_page = services.get_page_of_books(cursor, books_per_page, repo.repo_instance, book_list)
 
     first_book_page_url = None
@@ -74,7 +73,7 @@ def books_by_author(author_name):
         prev_book_page_url = url_for('book_bp.books_by_author', author_name=author_name, cursor=cursor - 1)
         first_book_page_url = url_for('book_bp.browse_all_books')
 
-    if cursor * books_per_page < total_books:
+    if cursor * books_per_page + books_per_page < total_books:
         next_book_page_url = url_for('book_bp.books_by_author', author_name=author_name, cursor=cursor + 1)
 
         last_cursor = (total_books // books_per_page) - 1
@@ -97,8 +96,6 @@ def books_by_publisher(publisher_name):
     books_per_page = 4
     cursor = request.args.get('cursor')
 
-    total_books = services.get_number_of_books(repo.repo_instance)
-
     # cursor to section the books to be displayed from the list
     if cursor is None:
         # If no cursor set up yet, initialize cursor to start at the beginning
@@ -107,6 +104,7 @@ def books_by_publisher(publisher_name):
         cursor = int(cursor)
 
     book_list = services.get_books_with_publisher(publisher_name, repo.repo_instance)
+    total_books = len(book_list)
     books_by_page = services.get_page_of_books(cursor, books_per_page, repo.repo_instance, book_list)
 
     first_book_page_url = None
@@ -118,7 +116,7 @@ def books_by_publisher(publisher_name):
         prev_book_page_url = url_for('book_bp.books_by_publisher', publisher_name=publisher_name, cursor=cursor - 1)
         first_book_page_url = url_for('book_bp.browse_all_publisher')
 
-    if cursor * books_per_page < total_books:
+    if cursor * books_per_page + books_per_page < total_books:
         next_book_page_url = url_for('book_bp.books_by_publisher', publisher_name=publisher_name, cursor=cursor + 1)
 
         last_cursor = (total_books // books_per_page) - 1
@@ -141,8 +139,6 @@ def books_by_release_year(release_year):
     books_per_page = 4
     cursor = request.args.get('cursor')
 
-    total_books = services.get_number_of_books(repo.repo_instance)
-
     # cursor to section the books to be displayed from the list
     if cursor is None:
         # If no cursor set up yet, initialize cursor to start at the beginning
@@ -151,6 +147,7 @@ def books_by_release_year(release_year):
         cursor = int(cursor)
 
     book_list = services.get_books_with_release_year(int(release_year), repo.repo_instance)
+    total_books = len(book_list)
     books_by_page = services.get_page_of_books(cursor, books_per_page, repo.repo_instance, book_list)
 
     first_book_page_url = None
@@ -162,7 +159,7 @@ def books_by_release_year(release_year):
         prev_book_page_url = url_for('book_bp.books_by_release_year', release_year=release_year, cursor=cursor - 1)
         first_book_page_url = url_for('book_bp.browse_all_books')
 
-    if cursor * books_per_page < total_books:
+    if cursor * books_per_page + books_per_page < total_books:
         next_book_page_url = url_for('book_bp.books_by_release_year', release_year=release_year, cursor=cursor + 1)
 
         last_cursor = (total_books // books_per_page) - 1
