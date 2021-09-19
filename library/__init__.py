@@ -40,6 +40,8 @@ def create_app():
         # Register blueprints.
         from .book import book
         app.register_blueprint(book.book_blueprint)
+        from .search import search
+        app.register_blueprint(search.search_blueprint)
 
     @app.route('/')
     def home():

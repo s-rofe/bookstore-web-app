@@ -1,5 +1,5 @@
 from library.adapters.repository import AbstractRepository
-from library.domain.model import Book
+from library.domain.model import Book, Author, Publisher
 
 
 class MemoryRepository(AbstractRepository):
@@ -8,16 +8,37 @@ class MemoryRepository(AbstractRepository):
 
     def __init__(self):
         self.__books = list()
+        self.__authors = list()
+        self.__publishers = list()
+        self.__release_years = list()
 
     # testing
     def get_all_books(self):
         return self.__books
 
-    def get_book_by_id(self, id: int):
-        return next((book for book in self.__books if book.book_id == id), None)
-
     def add_book(self, book: Book):
         self.__books.append(book)
+
+    def add_author(self, author: Author):
+        self.__authors.append(author)
+
+    def get_authors(self):
+        return self.__authors
+
+    def add_publisher(self, publisher: Publisher):
+        self.__publishers.append(publisher)
+
+    def get_publishers(self):
+        return self.__publishers
+
+    def add_release_year(self, release_year):
+        self.__release_years.append(release_year)
+
+    def get_release_years(self):
+        return self.__release_years
+
+    def get_book_by_id(self, id: int):
+        return next((book for book in self.__books if book.book_id == id), None)
 
     def get_number_of_books(self):
         return len(self.__books)

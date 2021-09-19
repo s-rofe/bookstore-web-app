@@ -20,7 +20,7 @@ def browse_all_books():
     else:
         cursor = int(cursor)
 
-    book_dict = services.get_page_of_books(cursor, books_per_page, repo.repo_instance)
+    book_list = services.get_page_of_books(cursor, books_per_page, repo.repo_instance)
 
     first_book_page_url = None
     last_book_page_url = None
@@ -40,7 +40,7 @@ def browse_all_books():
     return render_template(
         'books/browsebooks.html',
         title='All Books',
-        books=book_dict,
+        books=book_list,
         first_book_page_url=first_book_page_url,
         last_book_page_url=last_book_page_url,
         next_book_page_url=next_book_page_url,
@@ -48,10 +48,9 @@ def browse_all_books():
     )
 
 
-@book_blueprint.route('/books_by_author', methods=['GET'])
-def books_by_author():
+@book_blueprint.route('/books_by_author/<author_name>', methods=['GET'])
+def books_by_author(author_name):
     books_per_page = 4
-    author_name = request.args.get('author')
     cursor = request.args.get('cursor')
 
     total_books = services.get_number_of_books(repo.repo_instance)
@@ -72,14 +71,14 @@ def books_by_author():
     prev_book_page_url = None
 
     if cursor > 0:
-        prev_book_page_url = url_for('book_bp.books_by_author', cursor=cursor - 1)
+        prev_book_page_url = url_for('book_bp.books_by_author', author_name=author_name, cursor=cursor - 1)
         first_book_page_url = url_for('book_bp.browse_all_books')
 
     if cursor * books_per_page < total_books:
-        next_book_page_url = url_for('book_bp.books_by_author', cursor=cursor + 1)
+        next_book_page_url = url_for('book_bp.books_by_author', author_name=author_name, cursor=cursor + 1)
 
         last_cursor = (total_books // books_per_page) - 1
-        last_book_page_url = url_for('book_bp.books_by_author', cursor=last_cursor)
+        last_book_page_url = url_for('book_bp.books_by_author', author_name=author_name, cursor=last_cursor)
 
     return render_template(
         'books/browsebooks.html',
@@ -93,10 +92,9 @@ def books_by_author():
     )
 
 
-@book_blueprint.route('/books_by_publisher', methods=['GET'])
-def books_by_publisher():
+@book_blueprint.route('/books_by_publisher/<publisher_name>', methods=['GET'])
+def books_by_publisher(publisher_name):
     books_per_page = 4
-    publisher_name = request.args.get('publisher')
     cursor = request.args.get('cursor')
 
     total_books = services.get_number_of_books(repo.repo_instance)
@@ -117,14 +115,14 @@ def books_by_publisher():
     prev_book_page_url = None
 
     if cursor > 0:
-        prev_book_page_url = url_for('book_bp.books_by_publisher', cursor=cursor - 1)
+        prev_book_page_url = url_for('book_bp.books_by_publisher', publisher_name=publisher_name, cursor=cursor - 1)
         first_book_page_url = url_for('book_bp.browse_all_publisher')
 
     if cursor * books_per_page < total_books:
-        next_book_page_url = url_for('book_bp.books_by_publisher', cursor=cursor + 1)
+        next_book_page_url = url_for('book_bp.books_by_publisher', publisher_name=publisher_name, cursor=cursor + 1)
 
         last_cursor = (total_books // books_per_page) - 1
-        last_book_page_url = url_for('book_bp.books_by_publisher', cursor=last_cursor)
+        last_book_page_url = url_for('book_bp.books_by_publisher', publisher_name=publisher_name, cursor=last_cursor)
 
     return render_template(
         'books/browsebooks.html',
@@ -138,10 +136,9 @@ def books_by_publisher():
     )
 
 
-@book_blueprint.route('/books_by_release_year', methods=['GET'])
-def books_by_release_year():
+@book_blueprint.route('/books_by_release_year/<release_year>', methods=['GET'])
+def books_by_release_year(release_year):
     books_per_page = 4
-    release_year = request.args.get('release_year')
     cursor = request.args.get('cursor')
 
     total_books = services.get_number_of_books(repo.repo_instance)
@@ -162,14 +159,14 @@ def books_by_release_year():
     prev_book_page_url = None
 
     if cursor > 0:
-        prev_book_page_url = url_for('book_bp.books_by_release_year', cursor=cursor - 1)
+        prev_book_page_url = url_for('book_bp.books_by_release_year', release_year=release_year, cursor=cursor - 1)
         first_book_page_url = url_for('book_bp.browse_all_books')
 
     if cursor * books_per_page < total_books:
-        next_book_page_url = url_for('book_bp.books_by_release_year', cursor=cursor + 1)
+        next_book_page_url = url_for('book_bp.books_by_release_year', release_year=release_year, cursor=cursor + 1)
 
         last_cursor = (total_books // books_per_page) - 1
-        last_book_page_url = url_for('book_bp.books_by_release_year', cursor=last_cursor)
+        last_book_page_url = url_for('book_bp.books_by_release_year', release_year=release_year, cursor=last_cursor)
 
     return render_template(
         'books/browsebooks.html',

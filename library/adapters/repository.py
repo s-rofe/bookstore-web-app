@@ -12,15 +12,39 @@ class RepositoryException(Exception):
 
 class AbstractRepository(abc.ABC):
     @abc.abstractmethod
-    def get_book_by_id(self, id: int):
-        raise NotImplementedError
-
-    @abc.abstractmethod
     def add_book(self, book: Book):
         raise NotImplementedError
 
     @abc.abstractmethod
+    def add_author(self, author: Author):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_publisher(self, publisher: Publisher):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_release_year(self, release_year):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_authors(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_publishers(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_release_years(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
     def get_all_books(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_book_by_id(self, id: int):
         raise NotImplementedError
 
     @abc.abstractmethod
