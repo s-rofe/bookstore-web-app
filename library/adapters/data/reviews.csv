@@ -2,3 +2,6 @@ id,book-id,review-text,rating,
 1,27036539,"Great book 10/10 would read again",5
 2,27036536,"Not as good as the previous volume",2
 3,27036537,"Not great",1
+4,27036539,"Trash book",1
+5,27036539,"Amazing, best book, I wrote it myself",3
+6,27036539,"the testing is a good thing but at the same time it's fodder for the fake news to report cases",1

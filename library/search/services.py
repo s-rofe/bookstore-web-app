@@ -7,17 +7,21 @@ class NonExistentBookException(Exception):
 
 
 def is_author(search_term, repo: AbstractRepository):
+    search_term = search_term.lower()
     authors = repo.get_authors()
     for author in authors:
-        if search_term in author.full_name:
+        author_name = author.full_name.lower()
+        if search_term in author_name:
             return True
     return False
 
 
 def is_publisher(search_term, repo: AbstractRepository):
+    search_term = search_term.lower()
     publishers = repo.get_publishers()
     for publisher in publishers:
-        if search_term in publisher.name:
+        pub_name = publisher.name.lower()
+        if search_term in pub_name:
             return True
     return False
 
@@ -36,9 +40,11 @@ def is_release_year(search_term, repo: AbstractRepository):
             return False
 
 
-def is_title(search_term, repo:AbstractRepository):
+def is_title(search_term, repo: AbstractRepository):
+    search_term = search_term.lower()
     book_list = repo.get_all_books()
     for book in book_list:
-        if search_term in book.title:
+        book_title = book.title.lower()
+        if search_term in book_title:
             return True
     return False
