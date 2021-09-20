@@ -7,14 +7,19 @@
     <p><b>Release year:</b> {{ book.release_year }}</p>
     <hr>
     <!-- add reveiws here -->
-    {% for reviews in reviews_list %}
-        <p>{{ reviews.rating }}</p>
+    {% for review in reviews %}
+        <p>{{ review.reviews }}</p>
     {% endfor %}
     <hr>
     <p>{{ reviews }} </p>
-    <p>{{ book }} </p>
 
-    <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_review') }}'">Write a Review</button>
+    <p>{{ book }} </p>
+    <p>{{ reviews[3:5] }} </p>
+
+    <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_review') }}'" style="margin-left: 5%;">Write a Review</button>
+    <br>
+    <br>
+    <button style="margin-left: 5%;"> Add to Reading List</button>
     <br>
     <br>
 </body>
