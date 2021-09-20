@@ -47,5 +47,9 @@ def create_app():
         app.register_blueprint(home.home_blueprint)
         from .authentication import authentication
         app.register_blueprint(authentication.authentication_blueprint)
+        from .reviews import reviews
+        app.register_blueprint(reviews.reviews_blueprint)
+        from .reading_list import reading_list
+        app.register_blueprint(reading_list.reading_list_blueprint)
 
     return app
