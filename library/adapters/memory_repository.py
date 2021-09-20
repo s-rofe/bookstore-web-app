@@ -1,6 +1,9 @@
 from library.adapters.repository import AbstractRepository
-from library.domain.model import Book, Author, Publisher, User
+from library.domain.model import Book, Author, Publisher, User, Review
 from werkzeug.security import generate_password_hash
+from pathlib import Path
+import csv
+from utils import get_project_root
 
 
 class MemoryRepository(AbstractRepository):
@@ -13,6 +16,7 @@ class MemoryRepository(AbstractRepository):
         self.__publishers = list()
         self.__release_years = list()
         self.__users = list()
+        self.__reviews = list()
 
     # testing
     def get_all_books(self):
@@ -44,6 +48,13 @@ class MemoryRepository(AbstractRepository):
 
     def get_user(self, user_name):
         return next((user for user in self.__users if user.user_name == user_name), None)
+
+    def add_review(self, review: Review):
+        self.__reviews.append(review)
+
+    def get_reviews(self, book_id):
+        books_reviews = [review for review in self.__reviews if review.book.book_id == book_id]
+        return books_reviews
 
     def get_book_by_id(self, id: int):
         return next((book for book in self.__books if book.book_id == id), None)
@@ -80,21 +91,49 @@ class MemoryRepository(AbstractRepository):
         return book_list
 
 
+def read_csv_file(filename: str):
+    with open(filename, encoding='utf-8-sig') as infile:
+        reader = csv.reader(infile)
+
+        # Read first line of the the CSV file.
+        headers = next(reader)
+
+        # Read remaining rows from the CSV file.
+        for row in reader:
+            # Strip any leading/trailing white space from data read.
+            row = [item.strip() for item in row]
+            yield row
+
+
 def load_users(repo):
     # User names are changed to lowercase in the model
-    user1 = User(user_name="Test1", password=generate_password_hash("Test1@abc"))
-    user2 = User(user_name="Test2", password=generate_password_hash("Test2@abc"))
-    user3 = User(user_name="Test3", password=generate_password_hash("Test3@abc"))
-    repo.add_user(user1)
-    repo.add_user(user2)
-    repo.add_user(user3)
+    users_filename = Path(get_project_root()) / 'library' / 'adapters' / 'data' / 'users.csv'
+    for data_row in read_csv_file(users_filename):
+        user = User(
+            user_name=data_row[1],
+            password=generate_password_hash(data_row[2])
+        )
+        repo.add_user(user)
+
+
+def load_reviews(repo):
+    # User names are changed to lowercase in the model
+    reviews_filename = Path(get_project_root()) / 'library' / 'adapters' / 'data' / 'reviews.csv'
+    for data_row in read_csv_file(reviews_filename):
+        review = Review(
+            book=repo.get_book_by_id(int(data_row[1])),
+            review_text=data_row[2],
+            rating=int(data_row[3]),
+        )
+        repo.add_review(review)
 
 
 def populate(book_dataset, repo):
-    load_users(repo)
     for book in book_dataset:
         repo.add_book(book)
         for author in book.authors:
             repo.add_author(author)
         repo.add_publisher(book.publisher)
         repo.add_release_year(book.release_year)
+    load_users(repo)
+    load_reviews(repo)

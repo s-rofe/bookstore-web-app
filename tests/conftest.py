@@ -17,7 +17,7 @@ def in_memory_repo():
     else:
         print("Data files not found")
 
-    # Create the repo object and populate it (for now only does books)
+    # Create the repo object and populate it
     repo = MemoryRepository()
     populate(read_books.dataset_of_books, repo)
     return repo
