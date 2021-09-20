@@ -45,6 +45,7 @@ def is_title(search_term, repo: AbstractRepository):
     book_list = repo.get_all_books()
     for book in book_list:
         book_title = book.title.lower()
+        print(book.title.lower())
         if search_term in book_title:
             return True
     return False

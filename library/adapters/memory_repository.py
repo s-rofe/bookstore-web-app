@@ -72,24 +72,30 @@ class MemoryRepository(AbstractRepository):
 
     def get_books_with_author(self, author_name):
         # For each books authors, if there is an author named the same as the author name passed, add it to the list
+        author_name = author_name.lower()
         book_list = []
         for book in self.__books:
             for author in book.authors:
-                if author.full_name == author_name:
+                author_db_name = author.full_name.lower()
+                if author_name in author_db_name:
                     book_list.append(book)
         return book_list
 
-    def get_books_with_publisher(self, publisher):
+    def get_books_with_publisher(self, publisher_name):
         book_list = []
+        publisher_name = publisher_name.lower()
         for book in self.__books:
-            if book.publisher.name == publisher:
+            pub_name = book.publisher.name.lower()
+            if publisher_name in pub_name:
                 book_list.append(book)
         return book_list
 
     def get_books_by_title(self, title):
         book_list = []
+        title = title.lower()
         for book in self.__books:
-            if title in book.title:
+            book_title = book.title.lower()
+            if title in book_title:
                 book_list.append(book)
         return book_list
 
