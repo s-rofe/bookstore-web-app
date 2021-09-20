@@ -84,7 +84,11 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def increase_review_count(self):
+    def get_books_by_title(self, title):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def increase_review_count(self, count):
         raise NotImplementedError
 
     @abc.abstractmethod

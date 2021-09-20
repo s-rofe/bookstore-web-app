@@ -20,6 +20,9 @@ def search():
     elif services.is_release_year(search_term, repo.repo_instance):
         return redirect(url_for('book_bp.books_by_release_year', release_year=search_term))
 
+    elif services.is_title(search_term, repo.repo_instance):
+        return redirect(url_for('book_bp.books_by_title', title=search_term))
+
     else:
         return render_template('nobooksfound.html')
 
