@@ -24,9 +24,9 @@ def reviews(book_id):
     )
 
 
-@reviews_blueprint.route('/write-review', methods=['GET', 'POST'])
+@reviews_blueprint.route('/write_review', methods=['GET', 'POST'])
 @login_required
-def write_comment():
+def write_review():
     form = ReviewForm()
     user_name = session['user_name']
 
