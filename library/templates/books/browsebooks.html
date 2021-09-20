@@ -43,7 +43,7 @@
     <p><b>Publisher:</b> {{ book.publisher.name }}</p>
 
     <p><b>Description:</b> {{ book.description }}</p>
-    <p><b><a style="color:white" href="{{ url_for('reviews_bp.reviews') }}">Reviews</a></b></p>
+    <p><b><a style="color:white" href="{{ url_for('reviews_bp.reviews[book.id]') }}">Reviews</a></b></p>
      <br>
     </div>
 
