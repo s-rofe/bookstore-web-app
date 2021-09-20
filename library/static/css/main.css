@@ -25,6 +25,7 @@ footer {
   bottom: auto;
   width: 98.7%;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .navigation-bar {
@@ -39,8 +40,6 @@ footer {
     padding: 20px 16px;
     text-decoration: none;
     font-size: 17px;
-
-
 }
 .navigation-bar a:hover {
     background-color: #ddd;
