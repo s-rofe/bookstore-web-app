@@ -116,6 +116,7 @@ class Book:
         self.__release_year = None
         self.__ebook = None
         self.__num_pages = None
+        self.__total_ratings = 0
 
 
     @property
@@ -136,6 +137,15 @@ class Book:
                 raise ValueError
         else:
             raise ValueError
+
+    @property
+    def total_ratings(self):
+        return self.__total_ratings
+
+    @total_ratings.setter
+    def total_ratings(self, count: int):
+        rating = self.__total_ratings
+        self.__total_ratings = rating + count
 
     @property
     def release_year(self) -> int:

@@ -31,7 +31,6 @@ class BooksJSONReader:
                 authors_json.append(author_entry)
         return authors_json
 
-
     def read_json_files(self):
         authors_json = self.read_authors_file()
         books_json = self.read_books_file()
@@ -49,6 +48,8 @@ class BooksJSONReader:
             book_instance.description = book_json['description']
             if book_json['num_pages'] != "":
                 book_instance.num_pages = int(book_json['num_pages'])
+            if book_json['ratings_count'] != "":
+                book_instance.total_ratings = int(book_json['ratings_count'])
 
             # extract the author ids:
             list_of_authors_ids = book_json['authors']

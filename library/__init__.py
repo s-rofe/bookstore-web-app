@@ -45,5 +45,7 @@ def create_app():
         app.register_blueprint(search.search_blueprint)
         from .home import home
         app.register_blueprint(home.home_blueprint)
+        from .authentication import authentication
+        app.register_blueprint(authentication.authentication_blueprint)
 
     return app

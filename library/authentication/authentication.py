@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, Length, ValidationError
 from password_validator import PasswordValidator
 import library.authentication.services as services
 import library.adapters.repository as repo
+from functools import wraps
 
 authentication_blueprint = Blueprint('authentication_bp', __name__, url_prefix='/authentication')
 
@@ -72,6 +73,15 @@ def logout():
     # Clear the session and take the user to the home page
     session.clear()
     return redirect(url_for('home_bp.home'))
+
+
+def login_required(view):
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        if 'user_name' not in session:
+            return redirect(url_for('authentication_bp.login'))
+        return view(**kwargs)
+    return wrapped_view
 
 
 class PasswordValid:

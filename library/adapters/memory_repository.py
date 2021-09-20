@@ -90,6 +90,14 @@ class MemoryRepository(AbstractRepository):
         book_list = [book for book in self.__books if book.release_year == release_year]
         return book_list
 
+    def get_review_count(self, book_id):
+        book = self.get_book_by_id(book_id)
+        return book.total_ratings
+
+    def increase_review_count(self, book_id, count):
+        book = self.get_book_by_id(book_id)
+        book.total_ratings(count)
+
 
 def read_csv_file(filename: str):
     with open(filename, encoding='utf-8-sig') as infile:

@@ -44,3 +44,7 @@ def get_books_with_author(author, repo: AbstractRepository):
 
 def get_books_with_release_year(release_year, repo: AbstractRepository):
     return repo.get_books_with_release_year(release_year)
+
+
+def get_review_count(book_id, repo: AbstractRepository):
+    return repo.get_review_count(book_id)

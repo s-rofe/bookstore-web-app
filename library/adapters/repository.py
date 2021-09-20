@@ -82,3 +82,11 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_books_with_release_year(self, release_year):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def increase_review_count(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_review_count(self):
+        raise NotImplementedError
