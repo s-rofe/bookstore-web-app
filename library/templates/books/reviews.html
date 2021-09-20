@@ -5,16 +5,16 @@
     <br>
     <h2 id="book_title">{{ reviews_title }}</h2>
     <p><b>Release year:</b> {{ book.release_year }}</p>
-
+    <hr>
     <!-- add reveiws here -->
     {% for reviews in reviews_list %}
-        <p>{{ reviews }}</p>
+        <p>{{ reviews.rating }}</p>
     {% endfor %}
-
+    <hr>
     <p>{{ reviews }} </p>
     <p>{{ book }} </p>
 
-    <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_comment') }}'">Write a Review</button>
+    <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_review') }}'">Write a Review</button>
     <br>
     <br>
 </body>
