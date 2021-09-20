@@ -105,6 +105,20 @@ class MemoryRepository(AbstractRepository):
         book = self.get_book_by_id(book_id)
         book.total_ratings(count)
 
+    def get_reading_list_length(self, user_name):
+        user = self.get_user(user_name)
+        return len(user.read_books)
+
+    def get_reading_list(self, user_name):
+        user = self.get_user(user_name)
+        return user.read_books
+
+    def add_review_to_user(self, review: Review, user: User):
+        user.add_review(review)
+
+    def add_read_book(self, book: Book, user: User):
+        user.read_a_book(book)
+
 
 def read_csv_file(filename: str):
     with open(filename, encoding='utf-8-sig') as infile:

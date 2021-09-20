@@ -40,11 +40,11 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def add_user(self):
+    def add_user(self, user: User):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_user(self):
+    def get_user(self, user_name):
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -93,4 +93,20 @@ class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
     def get_review_count(self):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_reading_list_length(self, user_name):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_review_to_user(self, review, user_name):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def add_read_book(self, book: Book, user: User):
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def get_reading_list(self, user_name):
         raise NotImplementedError

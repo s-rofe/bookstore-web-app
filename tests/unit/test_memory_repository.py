@@ -1,5 +1,5 @@
 import pytest
-from library.domain.model import Book
+from library.domain.model import Book, Review
 from library.adapters.repository import RepositoryException
 
 
@@ -28,4 +28,5 @@ def test_load_reviews(in_memory_repo):
     assert len(in_memory_repo.get_reviews(27036537)) == 1
     assert len(in_memory_repo.get_reviews(27036536)) == 1
     # book id 27036539 author Tomas Aira 27036537 27036536
+
 
