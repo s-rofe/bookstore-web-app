@@ -1,11 +1,18 @@
 {% extends 'layout.html' %} {% block content %}
 <body>
-    <h2>Review page</h2>
+    <h2 style="text-align:center;">{{ title }}</h2>
     <hr>
     <br>
-    <h2 id="book_title">{{ reviews.reviews_title }}</h2>
+    <h2 id="book_title">{{ reviews_title }}</h2>
     <p><b>Release year:</b> {{ book.release_year }}</p>
+
     <!-- add reveiws here -->
+    {% for reviews in reviews_list %}
+        <p>{{ reviews.review-text }}</p>
+    {% endfor %}
+
     <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_comment') }}'">Write a Review</button>
+    <br>
+    <br>
 </body>
 {% endblock %}
