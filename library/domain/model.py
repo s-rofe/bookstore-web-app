@@ -276,8 +276,11 @@ class Review:
         return other.book == self.book and other.review_text == self.review_text \
                and other.rating == self.rating and other.timestamp == self.timestamp
 
+    def __lt__(self, other):
+        return self.timestamp < other.timestamp
+
     def __repr__(self):
-        return f'<Review of book {self.book}, rating = {self.rating}, timestamp = {self.timestamp}>'
+        return f'<Review of book {self.book}, review = {self.review_text}rating = {self.rating}, timestamp = {self.timestamp}> '
 
 
 class User:

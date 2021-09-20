@@ -22,5 +22,5 @@ def add_review(book_id, review_text, rating, user_name, repo: AbstractRepository
     review = Review(book, review_text, rating)
     repo.add_review(review)
     # Add the review to the user's list of reviews
-    user.add_review(Review)
+    user.add_review(review)
     repo.increase_review_count(book_id, 1)
