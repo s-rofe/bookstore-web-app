@@ -101,9 +101,9 @@ class MemoryRepository(AbstractRepository):
         book = self.get_book_by_id(book_id)
         return book.total_ratings
 
-    def increase_review_count(self, book_id, count):
+    def increase_review_count(self, book_id, num):
         book = self.get_book_by_id(book_id)
-        book.total_ratings(count)
+        book.increase_total_ratings(num)
 
     def get_reading_list_length(self, user_name):
         user = self.get_user(user_name)

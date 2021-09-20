@@ -143,9 +143,8 @@ class Book:
         return self.__total_ratings
 
     @total_ratings.setter
-    def total_ratings(self, count: int):
-        rating = self.__total_ratings
-        self.__total_ratings = rating + count
+    def total_ratings(self, num: int):
+        self.__total_ratings = num
 
     @property
     def release_year(self) -> int:
@@ -215,6 +214,9 @@ class Book:
     def num_pages(self, num_pages: int):
         if isinstance(num_pages, int) and num_pages >= 0:
             self.__num_pages = num_pages
+
+    def increase_total_ratings(self, num: int):
+        self.__total_ratings = self.__total_ratings + num
 
     def __repr__(self):
         return f'<Book {self.title}, book id = {self.book_id}>'
