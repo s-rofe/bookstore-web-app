@@ -13,7 +13,7 @@ reviews_blueprint = Blueprint("reviews_bp", __name__)
 
 @reviews_blueprint.route('/reviews/<book_id>', methods=['GET'])
 def reviews(book_id):
-    reviews_list = services.get_reviews(book_id, repo.repo_instance)
+    reviews_list = services.get_reviews(int(book_id), repo.repo_instance)
     book = services.get_book_by_id(int(book_id), repo.repo_instance)
     return render_template(
         'books/reviews.html',

@@ -8,8 +8,11 @@
 
     <!-- add reveiws here -->
     {% for reviews in reviews_list %}
-        <p>{{ reviews.review-text }}</p>
+        <p>{{ reviews }}</p>
     {% endfor %}
+
+    <p>{{ reviews }} </p>
+    <p>{{ book }} </p>
 
     <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_comment') }}'">Write a Review</button>
     <br>
