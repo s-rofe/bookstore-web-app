@@ -42,7 +42,7 @@ footer {
     float: left;
     color: white;
     text-align: center;
-    padding: 20px 16px;
+    padding: 42.5px 16px;
     text-decoration: none;
     font-size: 17px;
 }
@@ -53,6 +53,16 @@ footer {
 
 #login_status{
     background-color: rgb(24, 19, 158);
+}
+#nav_logo{
+    width:85px;
+    height:85px;
+    padding: 10px 10px;
+    float:left;
+}
+#search_term{
+    margin-top:30px;
+    margin-bottom:30px;
 }
 
 
@@ -154,7 +164,7 @@ margin-left: 10%;
 margin-left: 5%;
 }
 
-img{
+#home_img{
   display: block;
   margin-left: auto;
   margin-right: auto;
