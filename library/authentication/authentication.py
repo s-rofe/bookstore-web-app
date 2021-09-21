@@ -59,7 +59,7 @@ def login():
             password_doesnt_match = 'Password doesnt match Username - please try again'
 
         # For GET or failed POST
-        return render_template(
+    return render_template(
             'authentication/credentials.html',
             title='Login',
             username_not_found=username_not_found,
