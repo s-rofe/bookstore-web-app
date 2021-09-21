@@ -24,7 +24,7 @@ def test_load_users(in_memory_repo):
 
 def test_load_reviews(in_memory_repo):
     assert in_memory_repo.get_book_by_id(27036539)
-    assert len(in_memory_repo.get_reviews(27036539)) == 1
+    assert len(in_memory_repo.get_reviews(27036539)) == 4
     assert len(in_memory_repo.get_reviews(27036537)) == 1
     assert len(in_memory_repo.get_reviews(27036536)) == 1
     # book id 27036539 author Tomas Aira 27036537 27036536

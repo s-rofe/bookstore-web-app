@@ -28,4 +28,4 @@ def read_a_book(book: Book, user: User, repo: AbstractRepository):
 
 
 def get_reading_list(user_name, repo: AbstractRepository):
-    return repo.get
+    return repo.get_reading_list(user_name)
