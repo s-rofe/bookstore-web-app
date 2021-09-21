@@ -1,14 +1,15 @@
 <div class="navigation-bar">
     <nav>
-        <a id="nav_tab" onclick="href='http://localhost:5000/'" >Home</a>
+        <a id="nav_tab" onclick="href='http://localhost:5001/'" >Home</a>
         <a id="nav_tab">Reading List</a>
         <a id="nav_tab" onclick="location.href='{{ url_for('book_bp.browse_all_books') }}'">Books</a>
         <a id="nav_tab" onclick="location.href='{{ url_for('authentication_bp.register') }}'">Register</a>
         <a id="nav_tab" onclick="location.href='{{ url_for('authentication_bp.login') }}'">Login</a>
-        <a id="nav_tab" onclick="location.href='{{ url_for('authentication_bp.logout') }}'">Logout</a>
+
 
         {% if 'user_name' in session %}
-                <a id="login_status" style="float:right; hover:none;"> Logged in, {{ session['user_name'] }} </a>
+            <a id="nav_tab" style="float:right;" onclick="location.href='{{ url_for('authentication_bp.logout') }}'">Logout</a>
+            <a id="login_status" style="float:right; hover:none;"> Hello, {{ session['user_name'] }} </a>
         {% endif %}
 
         <form method="post" action="{{ url_for('search_bp.search') }}">
