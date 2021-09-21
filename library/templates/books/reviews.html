@@ -24,7 +24,7 @@
 
     <br>
     <br>
-    <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_review') }}'" style="margin-left: 5%;">Write a Review</button>
+    <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_review', book_id=book.book_id ) }}'" style="margin-left: 5%;">Write a Review</button>
     <br>
     <br>
 </body>

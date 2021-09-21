@@ -36,7 +36,7 @@ def write_review():
         return redirect(url_for('reviews_bp.reviews', book_id=book_id))
 
     if request.method == 'GET':
-        book_id = int(request.args.get('book'))
+        book_id = int(request.args.get('book_id'))
         form.book_id.data = book_id
 
     else:
@@ -44,7 +44,7 @@ def write_review():
 
     book = services.get_book_by_id(book_id, repo.repo_instance)
     return render_template(
-        'book/write_review.html',
+        'books/write_review.html',
         title='Write Review',
         book=book,
         form=form
