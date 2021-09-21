@@ -46,9 +46,13 @@ footer {
     text-decoration: none;
     font-size: 17px;
 }
-.navigation-bar a:hover {
+#nav_tab:hover {
     background-color: #ddd;
     color: black;
+}
+
+#login_status{
+    background-color: rgb(24, 19, 158);
 }
 
 
@@ -78,7 +82,7 @@ input {
     border-radius: 5px;
     margin-left: 5px;
     margin-top: 9px;
-    width: 40%;
+    width: 30%;
 }
 
 #container{
