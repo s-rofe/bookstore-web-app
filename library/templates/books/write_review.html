@@ -12,16 +12,10 @@
                 {{form.review(size = 100, placeholder="Type your review here.", class="textarea", cols="50", rows="6", wrap="hard")}}
             </p>
 
-
             {% if form.review.errors %}
-
                     {% for error in form.review.errors %}
-
                         <p style="color:black;">{{error}}</p>
-
                     {% endfor %}
-
-
             {% endif %}
         </div>
 
