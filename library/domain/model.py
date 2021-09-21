@@ -280,7 +280,7 @@ class Review:
         return self.timestamp < other.timestamp
 
     def __repr__(self):
-        return f'<Review of book {self.book}, review = {self.review_text}rating = {self.rating}, timestamp = {self.timestamp}> '
+        return f'<Review of book {self.book}, review = {self.review_text}, rating = {self.rating}, timestamp = {self.timestamp}> '
 
 
 class User:

@@ -7,19 +7,24 @@
     <p><b>Release year:</b> {{ book.release_year }}</p>
     <hr>
     <!-- add reveiws here -->
-    {% for review in reviews %}
-        <p>{{ review.reviews }}</p>
-    {% endfor %}
-    <hr>
-    <p>{{ reviews }} </p>
+    {% if reviews != [] %}
+        {% for review in reviews %}
+            <br>
+            <p id="review_text"><b>Review: </b>{{ review.review_text }}</p>
+            <p id="review_text"><b>Rating: </b>{{ review.rating }} </p>
+            <p id="review_text"><b>Timestamp: </b>{{ review.timestamp }} </p>
+            <br>
+            <hr id="review_line">
+        {% endfor %}
+    {% else %}
+        <br>
+        <p id="review_text" >There are no reviews for this book. Feel free to write a review.</p>
+        <br>
+    {% endif %}
 
-    <p>{{ book }} </p>
-    <p>{{ reviews[3:5] }} </p>
-
+    <br>
+    <br>
     <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_review') }}'" style="margin-left: 5%;">Write a Review</button>
-    <br>
-    <br>
-    <button style="margin-left: 5%;"> Add to Reading List</button>
     <br>
     <br>
 </body>

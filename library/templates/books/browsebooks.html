@@ -45,8 +45,11 @@
     <p><b>Description:</b> {{ book.description }}</p>
     <!--<p><b><a style="color:white" href="{{ url_for('reviews_bp.reviews', book_id=book.book_id ) }}">Reviews</a></b></p> -->
     <button style="margin-left: 5%;" onclick="location.href='{{ url_for('reviews_bp.reviews', book_id=book.book_id ) }}'">Reviews</button>
-     <br>
-     <br>
+    <br>
+    <br>
+    <button style="margin-left: 5%;"> Add to Reading List</button>
+    <br>
+    <br>
     </div>
 
     {% endfor %}

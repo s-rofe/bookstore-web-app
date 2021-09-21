@@ -8,6 +8,11 @@ hr {
     height: 2px;
     background-color: white;
 }
+#review_line{
+    width: 85%;
+    height: 1px;
+    background-color: white;
+}
 
 .footer h4{
     margin-top: 5px;
@@ -171,4 +176,9 @@ color: white;
 
 b{
 font-size: 20px;
+}
+
+#review_text{
+    margin-left: 10%;
+    margin-right: 10%;
 }
