@@ -12,20 +12,23 @@
             <br>
             <p id="review_text"><b>Review: </b>{{ review.review_text }}</p>
             <p id="review_text"><b>Rating: </b>{{ review.rating }} </p>
+            <p id="review_text"><b>Review by: </b>... </p>
             <p id="review_text"><b>Timestamp: </b>{{ review.timestamp }} </p>
             <br>
             <hr id="review_line">
         {% endfor %}
     {% else %}
         <br>
-        <p id="review_text" >There are no reviews for this book. Feel free to write a review (must be logged-in to write review).</p>
+        <p id="review_text" >There are no reviews for this book. Feel free to write a review.</p>
         <br>
     {% endif %}
 
     <br>
     <br>
+    <br>
     <button class="write-review" onclick="location.href='{{ url_for('reviews_bp.write_review', book_id=book.book_id ) }}'" style="margin-left: 5%;">Write a Review</button>
+    <p>(Must be logged in to write review)</p>
     <br>
-    <br>
+
 </body>
 {% endblock %}
