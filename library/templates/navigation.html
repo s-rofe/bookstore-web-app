@@ -3,8 +3,8 @@
         <a onclick="href='http://localhost:5000/'" >Home</a>
         <a>Reading List</a>
         <a onclick="location.href='{{ url_for('book_bp.browse_all_books') }}'">Books</a>
-        <a>Register</a>
-        <a>Login</a>
+        <a onclick="location.href='{{ url_for('book_bp.register') }}'">Register</a>
+        <a onclick="location.href='{{ url_for('book_bp.login') }}'">Login</a>
         <form method="post" action="{{ url_for('search_bp.search') }}">
             <input type="text" name="search_term" id="search_term" placeholder="Search by Author, Publisher, Title or Year">
             <button type="submit">Search</button>
