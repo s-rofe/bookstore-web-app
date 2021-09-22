@@ -35,5 +35,9 @@ def read_a_book(book: Book, user: User, repo: AbstractRepository):
     repo.add_read_book(book, user)
 
 
+def remove_read_book(book: Book, user: User, repo: AbstractRepository):
+    repo.remove_read_book(book, user)
+
+
 def get_reading_list(user_name, repo: AbstractRepository):
     return repo.get_reading_list(user_name)

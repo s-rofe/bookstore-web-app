@@ -20,6 +20,18 @@ def add_to_reading_list(book_id):
     return redirect(url_for('reading_list_bp.reading_list', cursor=new_cursor))
 
 
+@reading_list_blueprint.route('/remove_read_book/<book_id>', methods=['GET', 'POST'])
+@login_required
+def remove_read_book(book_id):
+    book = services.get_book_by_id(int(book_id), repo.repo_instance)
+    user_name = session['user_name']
+    user = services.get_user(user_name, repo.repo_instance)
+    services.remove_read_book(book, user, repo.repo_instance)
+    reading_list_length = services.get_reading_list_length(user_name, repo.repo_instance)
+    new_cursor = reading_list_length // 4
+    return redirect(url_for('reading_list_bp.reading_list', cursor=new_cursor))
+
+
 @reading_list_blueprint.route('/reading_list', methods=['GET'])
 @login_required
 def reading_list():

@@ -126,6 +126,9 @@ class MemoryRepository(AbstractRepository):
     def add_read_book(self, book: Book, user: User):
         user.read_a_book(book)
 
+    def remove_read_book(self, book: Book, user: User):
+        user.remove_read_book(book)
+
     def set_stored_url(self, url):
         self.__stored_url = url
 

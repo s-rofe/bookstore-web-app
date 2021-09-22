@@ -118,7 +118,6 @@ class Book:
         self.__num_pages = None
         self.__total_ratings = 0
 
-
     @property
     def book_id(self) -> int:
         return self.__book_id
@@ -325,6 +324,12 @@ class User:
             self.__read_books.append(book)
             if book.num_pages is not None:
                 self.__pages_read += book.num_pages
+
+    def remove_read_book(self, book: Book):
+        if isinstance(book, Book):
+            self.__read_books.remove(book)
+            if book.num_pages is not None:
+                self.__pages_read -= book.num_pages
 
     def add_review(self, review: Review):
         if isinstance(review, Review):
