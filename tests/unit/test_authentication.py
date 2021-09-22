@@ -22,3 +22,5 @@ def test_get_user(in_memory_repo):
 def test_authenticate_user(in_memory_repo):
     auth = services.authenticate_user('test1', 'Test1@abc', in_memory_repo)
     assert auth != AuthenticationException
+    with pytest.raises(AuthenticationException):
+        services.authenticate_user('test1', 'testabc', in_memory_repo)

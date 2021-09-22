@@ -31,7 +31,7 @@ def register():
         'authentication/credentials.html',
         title='Register',
         form=form,
-        error_message=error_message,
+        user_name_error_message=error_message,
         handler_url=url_for('authentication_bp.register')
     )
 
@@ -54,7 +54,6 @@ def login():
             # Create session then take the user to the home page
             session['user_name'] = user.user_name
             referrer = request.headers.get('Referer')
-            print(referrer)
             return redirect(services.get_stored_url(repo.repo_instance))
 
         except services.UnknownUserException:
@@ -64,14 +63,13 @@ def login():
             password_doesnt_match = 'Password doesnt match Username - please try again'
 
         # For GET or failed POST
-        print(referrer)
     if request.method == 'GET':
         services.set_stored_url(referrer, repo.repo_instance)
     return render_template(
         'authentication/credentials.html',
         title='Login',
-        username_not_found=username_not_found,
-        password_doesnt_match=password_doesnt_match,
+        user_name_error_message=username_not_found,
+        password_error_message=password_doesnt_match,
         form=form,
     )
 
