@@ -18,7 +18,7 @@ def reviews(book_id):
     return render_template(
         'books/reviews.html',
         title='Reviews',
-        reviews_title= book.title,
+        reviews_title=book.title,
         reviews=reviews_list,
         book=book
     )

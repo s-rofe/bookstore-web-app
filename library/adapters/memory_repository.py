@@ -169,6 +169,7 @@ def load_reviews(repo):
             book=repo.get_book_by_id(int(data_row[1])),
             review_text=data_row[2],
             rating=int(data_row[3]),
+            author=data_row[4]
         )
         repo.add_review(review)
 

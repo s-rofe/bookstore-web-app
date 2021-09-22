@@ -48,7 +48,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def add_review(self):
+    def add_review(self, review: Review):
         raise NotImplementedError
 
     @abc.abstractmethod

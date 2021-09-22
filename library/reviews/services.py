@@ -19,7 +19,7 @@ def get_book_by_id(book_id, repo: AbstractRepository):
 def add_review(book_id, review_text, rating, user_name, repo: AbstractRepository):
     user = repo.get_user(user_name)
     book = repo.get_book_by_id(book_id)
-    review = Review(book, review_text, rating)
+    review = Review(book, review_text, rating, user_name)
     repo.add_review(review)
     # Add the review to the user's list of reviews
     user.add_review(review)

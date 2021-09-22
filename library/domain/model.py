@@ -234,7 +234,7 @@ class Book:
 
 class Review:
 
-    def __init__(self, book: Book, review_text: str, rating: int):
+    def __init__(self, book: Book, review_text: str, rating: int, author: str):
         if isinstance(book, Book):
             self.__book = book
         else:
@@ -249,6 +249,9 @@ class Review:
             self.__rating = rating
         else:
             raise ValueError
+
+        if isinstance(author, str) and author != "":
+            self.__author = author
 
         self.__timestamp = datetime.now()
 
@@ -265,6 +268,10 @@ class Review:
         return self.__rating
 
     @property
+    def author(self) -> str:
+        return self.__author
+
+    @property
     def timestamp(self) -> datetime:
         return self.__timestamp
 
@@ -273,13 +280,13 @@ class Review:
             return False
 
         return other.book == self.book and other.review_text == self.review_text \
-               and other.rating == self.rating and other.timestamp == self.timestamp
+               and other.rating == self.rating and other.timestamp == self.timestamp and other.author == self.author
 
     def __lt__(self, other):
         return self.timestamp < other.timestamp
 
     def __repr__(self):
-        return f'<Review of book {self.book}, review = {self.review_text}, rating = {self.rating}, timestamp = {self.timestamp}> '
+        return f'<Review of book {self.book}, review = {self.review_text}, rating = {self.rating}, author = {self.author}, timestamp = {self.timestamp}> '
 
 
 class User:
