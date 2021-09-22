@@ -15,6 +15,14 @@ def get_book_by_id(book_id: int, repo: AbstractRepository):
     return book
 
 
+def get_page_of_books(cursor, books_per_page, repo: AbstractRepository, book_list=None):
+    if book_list is None:
+        books = repo.get_page_of_books(cursor, books_per_page)
+    else:
+        books = repo.get_page_of_books(cursor, books_per_page, book_list)
+    return books
+
+
 def get_user(user_name, repo: AbstractRepository):
     return repo.get_user(user_name)
 

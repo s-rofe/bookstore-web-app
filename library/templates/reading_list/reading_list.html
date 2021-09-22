@@ -27,7 +27,7 @@
             <button class="disabled-btn-right" disabled>Next</button>
         {% endif %}
 
-        <h1>Books</h1>
+        <h1>{{ user_name }}'s Reading List</h1>
 
         <br>
 
@@ -46,7 +46,6 @@
     <button style="margin-left: 5%;" onclick="location.href='{{ url_for('reviews_bp.reviews', book_id=book.book_id ) }}'">Reviews</button>
     <br>
     <br>
-    <button style="margin-left: 5%;" onclick="location.href='{{ url_for('reading_list_bp.add_to_reading_list', book_id=book.book_id) }}'"> Add to Reading List</button>
     <br>
     <br>
     </div>

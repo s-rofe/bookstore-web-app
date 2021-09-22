@@ -11,10 +11,10 @@ reading_list_blueprint = Blueprint("reading_list_bp", __name__)
 @reading_list_blueprint.route('/add_to_reading_list/<book_id>', methods=['GET', 'POST'])
 @login_required
 def add_to_reading_list(book_id):
-    book = services.get_book_by_id(book_id)
+    book = services.get_book_by_id(int(book_id), repo.repo_instance)
     user_name = session['user_name']
-    user = services.get_user(user_name)
-    services.read_a_book(book, user)
+    user = services.get_user(user_name, repo.repo_instance)
+    services.read_a_book(book, user, repo.repo_instance)
     reading_list_length = services.get_reading_list_length(user_name, repo.repo_instance)
     new_cursor = reading_list_length // 4
     return redirect(url_for('reading_list_bp.reading_list', cursor=new_cursor))
@@ -57,6 +57,7 @@ def reading_list():
         'reading_list/reading_list.html',
         title='Your reading list',
         books=books_by_page,
+        user_name=user_name,
         first_book_page_url=first_book_page_url,
         last_book_page_url=last_book_page_url,
         next_book_page_url=next_book_page_url,
