@@ -45,3 +45,11 @@ def authenticate_user(user_name, password, repo: AbstractRepository):
         auth = check_password_hash(user.password, password)
     if not auth:
         raise AuthenticationException
+
+
+def set_stored_url(url, repo: AbstractRepository):
+    repo.set_stored_url(url)
+
+
+def get_stored_url(repo: AbstractRepository):
+    return repo.get_stored_url()

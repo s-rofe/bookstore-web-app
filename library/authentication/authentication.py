@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session
+from flask import Blueprint, render_template, redirect, url_for, session, request
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, ValidationError
@@ -8,6 +8,8 @@ import library.adapters.repository as repo
 from functools import wraps
 
 authentication_blueprint = Blueprint('authentication_bp', __name__, url_prefix='/authentication')
+
+stored_url = None
 
 
 @authentication_blueprint.route('/register', methods=['GET', 'POST'])
@@ -39,6 +41,7 @@ def login():
     form = LoginForm()
     username_not_found = None
     password_doesnt_match = None
+    referrer = request.headers.get('Referer')
 
     if form.validate_on_submit():
         # Look up the user in the repo
@@ -50,7 +53,9 @@ def login():
             session.clear()
             # Create session then take the user to the home page
             session['user_name'] = user.user_name
-            return redirect(url_for('home_bp.home'))
+            referrer = request.headers.get('Referer')
+            print(referrer)
+            return redirect(services.get_stored_url(repo.repo_instance))
 
         except services.UnknownUserException:
             username_not_found = 'User not found - please try again'
@@ -59,13 +64,16 @@ def login():
             password_doesnt_match = 'Password doesnt match Username - please try again'
 
         # For GET or failed POST
+        print(referrer)
+    if request.method == 'GET':
+        services.set_stored_url(referrer, repo.repo_instance)
     return render_template(
-            'authentication/credentials.html',
-            title='Login',
-            username_not_found=username_not_found,
-            password_doesnt_match=password_doesnt_match,
-            form=form
-        )
+        'authentication/credentials.html',
+        title='Login',
+        username_not_found=username_not_found,
+        password_doesnt_match=password_doesnt_match,
+        form=form,
+    )
 
 
 @authentication_blueprint.route('/logout')
@@ -81,6 +89,7 @@ def login_required(view):
         if 'user_name' not in session:
             return redirect(url_for('authentication_bp.login'))
         return view(**kwargs)
+
     return wrapped_view
 
 

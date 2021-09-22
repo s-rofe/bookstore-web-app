@@ -17,6 +17,7 @@ class MemoryRepository(AbstractRepository):
         self.__release_years = list()
         self.__users = list()
         self.__reviews = list()
+        self.__stored_url = None
 
     # testing
     def get_all_books(self):
@@ -124,6 +125,12 @@ class MemoryRepository(AbstractRepository):
 
     def add_read_book(self, book: Book, user: User):
         user.read_a_book(book)
+
+    def set_stored_url(self, url):
+        self.__stored_url = url
+
+    def get_stored_url(self):
+        return self.__stored_url
 
 
 def read_csv_file(filename: str):

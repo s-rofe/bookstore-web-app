@@ -110,3 +110,11 @@ class AbstractRepository(abc.ABC):
     @abc.abstractmethod
     def get_reading_list(self, user_name):
         raise NotImplementedError
+
+    @abc.abstractmethod
+    def set_stored_url(self, url):
+        return NotImplementedError
+
+    @abc.abstractmethod
+    def get_stored_url(self):
+        return NotImplementedError
