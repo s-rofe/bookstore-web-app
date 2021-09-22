@@ -44,8 +44,8 @@
     <p><b>Author:</b>
         {% if book.authors is not none %}
             {% for authors in book.authors %}
-                {{ book.authors }}
-                {{ loop.length }}
+                {{ authors.full_name }}
+                {{ authors.unique_id }}
             {% endfor %}
         {% else %}
             N/A
