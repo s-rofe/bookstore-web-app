@@ -32,7 +32,7 @@ def write_review():
 
     if form.validate_on_submit():
         book_id = int(form.book_id.data)
-        services.add_review(book_id, form.review.data, form.rating.data, user_name, repo.repo_instance)
+        services.add_review(book_id, form.review.data, int(form.rating.data), user_name, repo.repo_instance)
         return redirect(url_for('reviews_bp.reviews', book_id=book_id))
 
     if request.method == 'GET':
@@ -66,7 +66,7 @@ class ReviewForm(FlaskForm):
     review = TextAreaField('Review', [
         Length(min=4, message='Your review is too short'),
         ProfanityFree(message='Profanity is not allowed')])
-    rating = SelectField('Rating', choices=[('1', '1 Star'), ('2', '2 Stars'), ('3', '3 Stars'), ('4', '4 Stars'),
-                                            ('5', '5 Stars')])
+    rating = SelectField('Rating', choices=[(1, '1 Star'), (2, '2 Stars'), (3, '3 Stars'), (4, '4 Stars'),
+                                            (5, '5 Stars')])
     book_id = HiddenField("Book id")
     submit = SubmitField('Submit')
