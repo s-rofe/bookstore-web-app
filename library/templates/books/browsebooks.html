@@ -45,9 +45,13 @@
         {% if book.authors is not none %}
             {% for authors in book.authors %}
                 {% if book.authors|length == 1 %}
-                    {{ authors.full_name }}
+                    {{ authors.full_name }}.
                 {% else %}
-                    {{ authors.full_name }},
+                    {% if loop.index == book.authors|length %}
+                        {{ authors.full_name }}.
+                    {% else %}
+                        {{ authors.full_name }},
+                    {% endif %}
                 {% endif %}
             {% endfor %}
         {% else %}
