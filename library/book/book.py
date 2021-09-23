@@ -48,10 +48,11 @@ def browse_all_books():
     )
 
 
-@book_blueprint.route('/books_by_author/<author_name>', methods=['GET'])
-def books_by_author(author_name):
+@book_blueprint.route('/books_by_author', methods=['GET'])
+def books_by_author():
     books_per_page = 4
     cursor = request.args.get('cursor')
+    author_name = request.args.get('author_name')
 
     # cursor to section the books to be displayed from the list
     if cursor is None:
@@ -91,10 +92,11 @@ def books_by_author(author_name):
     )
 
 
-@book_blueprint.route('/books_by_publisher/<publisher_name>', methods=['GET'])
-def books_by_publisher(publisher_name):
+@book_blueprint.route('/books_by_publisher', methods=['GET'])
+def books_by_publisher():
     books_per_page = 4
     cursor = request.args.get('cursor')
+    publisher_name = request.args.get('publisher_name')
 
     # cursor to section the books to be displayed from the list
     if cursor is None:
@@ -134,10 +136,11 @@ def books_by_publisher(publisher_name):
     )
 
 
-@book_blueprint.route('/books_by_release_year/<release_year>', methods=['GET'])
-def books_by_release_year(release_year):
+@book_blueprint.route('/books_by_release_year', methods=['GET'])
+def books_by_release_year():
     books_per_page = 4
     cursor = request.args.get('cursor')
+    release_year = request.args.get('release_year')
 
     # cursor to section the books to be displayed from the list
     if cursor is None:
@@ -177,10 +180,11 @@ def books_by_release_year(release_year):
     )
 
 
-@book_blueprint.route('/books_by_title/<title>', methods=['GET'])
-def books_by_title(title):
+@book_blueprint.route('/books_by_title/', methods=['GET'])
+def books_by_title():
     books_per_page = 4
     cursor = request.args.get('cursor')
+    title = request.args.get('title')
 
     # cursor to section the books to be displayed from the list
     if cursor is None:
@@ -200,7 +204,7 @@ def books_by_title(title):
 
     if cursor > 0:
         prev_book_page_url = url_for('book_bp.books_by_title', title=title, cursor=cursor - 1)
-        first_book_page_url = url_for('book_bp.browse_by_title', title=title)
+        first_book_page_url = url_for('book_bp.books_by_title', title=title)
 
     if cursor * books_per_page + books_per_page < total_books:
         next_book_page_url = url_for('book_bp.books_by_title', title=title, cursor=cursor + 1)

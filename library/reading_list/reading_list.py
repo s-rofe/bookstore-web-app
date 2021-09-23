@@ -8,9 +8,10 @@ from library.authentication.authentication import login_required
 reading_list_blueprint = Blueprint("reading_list_bp", __name__)
 
 
-@reading_list_blueprint.route('/add_to_reading_list/<book_id>', methods=['GET', 'POST'])
+@reading_list_blueprint.route('/add_to_reading_list', methods=['GET', 'POST'])
 @login_required
-def add_to_reading_list(book_id):
+def add_to_reading_list():
+    book_id = request.args.get('book_id')
     book = services.get_book_by_id(int(book_id), repo.repo_instance)
     user_name = session['user_name']
     user = services.get_user(user_name, repo.repo_instance)
@@ -20,9 +21,10 @@ def add_to_reading_list(book_id):
     return redirect(url_for('reading_list_bp.reading_list', cursor=new_cursor))
 
 
-@reading_list_blueprint.route('/remove_read_book/<book_id>', methods=['GET', 'POST'])
+@reading_list_blueprint.route('/remove_read_book', methods=['GET', 'POST'])
 @login_required
-def remove_read_book(book_id):
+def remove_read_book():
+    book_id = request.args.get('book_id')
     book = services.get_book_by_id(int(book_id), repo.repo_instance)
     user_name = session['user_name']
     user = services.get_user(user_name, repo.repo_instance)

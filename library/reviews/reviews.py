@@ -11,8 +11,9 @@ import library.reviews.services as services
 reviews_blueprint = Blueprint("reviews_bp", __name__)
 
 
-@reviews_blueprint.route('/reviews/<book_id>', methods=['GET'])
-def reviews(book_id):
+@reviews_blueprint.route('/reviews', methods=['GET'])
+def reviews():
+    book_id = request.args.get('book_id')
     reviews_list = services.get_reviews(int(book_id), repo.repo_instance)
     book = services.get_book_by_id(int(book_id), repo.repo_instance)
     return render_template(
@@ -54,7 +55,7 @@ def write_review():
 class ProfanityFree:
     def __init__(self, message=None):
         if not message:
-            message = u'Field must not contain profanity'
+            message = u'Review must not contain profanity'
         self.message = message
 
     def __call__(self, form, field):

@@ -1,5 +1,6 @@
 from library.adapters.repository import AbstractRepository
 from library.domain.model import Book, Author, Publisher, User, Review
+from library.adapters.jsondatareader import BooksJSONReader
 from werkzeug.security import generate_password_hash
 from pathlib import Path
 import csv
@@ -174,12 +175,30 @@ def load_reviews(repo):
         repo.add_review(review)
 
 
-def populate(book_dataset, repo):
+def load_json_data(book_dataset, repo):
     for book in book_dataset:
         repo.add_book(book)
         for author in book.authors:
             repo.add_author(author)
         repo.add_publisher(book.publisher)
         repo.add_release_year(book.release_year)
+
+
+def populate(data_path, repo):
+    # Get the dataset of books from the json files
+    book_data_path = Path(data_path) / "comic_books_excerpt.json"
+    author_data_path = Path(data_path) / "book_authors_excerpt.json"
+    read_books = BooksJSONReader(book_data_path, author_data_path)
+    if author_data_path.is_file() and book_data_path.is_file():
+        read_books.read_json_files()
+
+    # Load the data
+    load_json_data(read_books.dataset_of_books, repo)
     load_users(repo)
     load_reviews(repo)
+
+    # give user test1 a book in the reading list for testing
+    book = repo.get_book_by_id(25742454)
+    user = repo.get_user("test1")
+    repo.add_read_book(book, user)
+

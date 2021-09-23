@@ -1,0 +1,7 @@
+id,book-id,review-text,rating,author
+1,27036539,"Great book 10/10 would read again",5,"bob"
+2,27036536,"Not as good as the previous volume",2,"bob"
+3,27036537,"Not great",1,"Gary"
+4,27036539,"Trash book",1, "Gary"
+5,27036539,"Amazing, best book, I wrote it myself",3,"Marge"
+6,27036539,"the testing is a good thing but at the same time it's fodder for the fake news to report cases",1,"T"
