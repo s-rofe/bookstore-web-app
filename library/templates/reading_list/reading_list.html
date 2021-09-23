@@ -36,18 +36,35 @@
 
 
     {% for book in books %}
-    <hr>
+
     <br>
     <h2 id="book_title">{{ book.title }}</h2>
     <div id="book_info">
     <p><b>Release year:</b> {{ book.release_year }}</p>
     <p><b>Publisher:</b> {{ book.publisher.name }}</p>
-    <p><b>Author:</b> {{ book.authors }}</p>
+    <p><b>Author:</b>
+        {% if book.authors is not none %}
+            {% for authors in book.authors %}
+                {% if book.authors|length == 1 %}
+                    {{ authors.full_name }}.
+                {% else %}
+                    {% if loop.index == book.authors|length %}
+                        {{ authors.full_name }}.
+                    {% else %}
+                        {{ authors.full_name }},
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            N/A
+        {% endif %}
+    </p>
     <p><b>Description:</b> {{ book.description }}</p>
     <button style="margin-left: 5%;" onclick="location.href='{{ url_for('reviews_bp.reviews', book_id=book.book_id ) }}'">Reviews</button>
-        <button style="margin-right: 5%;" onclick="location.href='{{ url_for('reading_list_bp.remove_read_book', book_id=book.book_id ) }}'">Remove Book</button>
+    <button style="margin-right: 5%;" onclick="location.href='{{ url_for('reading_list_bp.remove_read_book', book_id=book.book_id ) }}'">Remove Book</button>
     <br>
     <br>
+    <hr>
     <br>
     <br>
     </div>
