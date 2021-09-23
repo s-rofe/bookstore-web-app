@@ -142,3 +142,6 @@ def test_reading_list(client, auth):
     auth.login()
     response = client.get('/reading_list')
     assert response.status_code == 200
+
+    # Check reading list contains the sample book
+    assert b'The Switchblade Mamma' in response.data
