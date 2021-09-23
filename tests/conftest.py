@@ -1,23 +1,46 @@
 import pytest
 
 from pathlib import Path
+from library import create_app
 from library.adapters.memory_repository import MemoryRepository, populate
 from library.adapters.jsondatareader import BooksJSONReader
 from utils import get_project_root
 
+TEST_DATA_PATH = get_project_root() / "tests" / "data"
 
 
 @pytest.fixture
 def in_memory_repo():
-    book_data_path = Path(get_project_root()) / 'library' / 'adapters' / 'data' / 'comic_books_excerpt.json'
-    author_data_path = Path(get_project_root()) / 'library' / 'adapters' / 'data' / 'book_authors_excerpt.json'
-    read_books = BooksJSONReader(book_data_path, author_data_path)
-    if author_data_path.is_file() and book_data_path.is_file():
-        read_books.read_json_files()
-    else:
-        print("Data files not found")
-
     # Create the repo object and populate it
     repo = MemoryRepository()
-    populate(read_books.dataset_of_books, repo)
+    populate(TEST_DATA_PATH, repo)
     return repo
+
+
+@pytest.fixture
+def client():
+    test_app = create_app({
+        'TESTING': True,
+        'TEST_DATA_PATH': TEST_DATA_PATH,
+        'WTF_CSRF_ENABLED': False
+    })
+    return test_app.test_client()
+
+
+class AuthenticationManager:
+    def __init__(self, client):
+        self.__client = client
+
+    def login(self, user_name='test1', password='Test1@abc'):
+        return self.__client.post(
+            'authentication/login',
+            data={'user_name': user_name, 'password': password}
+        )
+
+    def logout(self):
+        return self.__client.get('/authentication/logout')
+
+
+@pytest.fixture
+def auth(client):
+    return AuthenticationManager(client)
