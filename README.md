@@ -1,15 +1,16 @@
-# COMPSCI 235 Starter Repository for Assignment 2
+# COMPSCI 235 Assignment 2 by srof384 & udea631
 
 
 ## Description
 
 This repository contains an implementation of the domain model from Assignment 1. 
-It contains unit tests which can be run through pytest. 
-It also contains a simple Flask application that renders content of a Book object instance from our domain model on a blank html page.
+It contains unit tests and integration tests which can be run through pytest. 
+It also contains a Flask application that renders content of a Book object instance from our domain model on various html pages.
+The Flask application allows users to browse all Book objects, Book objects with a specific Author, Publisher, release year or title.
 
-Please note that this sample implementation from Assignment 1 contains a more comprehensive superset of tests compared with what we had as hidden tests on Coderunner. 
-Your domain model implementation may have to be extended to meet all test cases in the sample implementation, but you may also decide to remove or modify test cases as it suits you. 
-From here on you can choose if you want to use the provided domain model or your implementation, just make sure your chosen set of test cases always work with your implementation.
+The Flask application allows users to register, login and logout of the application.
+When logged-in users can write reviews of Books, as well as view their personal reading list. User's can add Books to their reading list when browsing books
+and remove Books from their reading list page.
 
 
 ## Python version
