@@ -34,8 +34,8 @@ def test_remove_read_book(in_memory_repo):
     user = in_memory_repo.get_user("test1")
     book = in_memory_repo.get_book_by_id(27036539)
     in_memory_repo.add_read_book(book, user)
-    assert in_memory_repo.get_reading_list_length("test1") == 1
+    assert in_memory_repo.get_reading_list_length("test1") == 2
     in_memory_repo.remove_read_book(book, user)
-    assert in_memory_repo.get_reading_list_length("test1") == 0
+    assert in_memory_repo.get_reading_list_length("test1") == 1
 
 
