@@ -201,4 +201,3 @@ def populate(data_path, repo):
     book = repo.get_book_by_id(25742454)
     user = repo.get_user("test1")
     repo.add_read_book(book, user)
-

@@ -1,6 +1,5 @@
 import abc
-from typing import List
-from library.domain.model import Publisher, Book, Author, User, Review, BooksInventory
+from library.domain.model import Publisher, Book, Author, User, Review
 
 repo_instance = None
 
@@ -52,7 +51,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_reviews(self):
+    def get_reviews(self, book_id):
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -68,7 +67,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_page_of_books(self, cursor, books_per_page):
+    def get_page_of_books(self, cursor, books_per_page, book_list=None):
         raise NotImplementedError
 
     @abc.abstractmethod
@@ -88,11 +87,11 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def increase_review_count(self, count):
+    def increase_review_count(self, book_id, count):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_review_count(self):
+    def get_review_count(self, book_id):
         raise NotImplementedError
 
     @abc.abstractmethod
