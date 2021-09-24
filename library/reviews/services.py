@@ -1,7 +1,5 @@
-from typing import Iterable
-
 from library.adapters.repository import AbstractRepository
-from library.domain.model import Book, Author, Publisher, Review, User
+from library.domain.model import Review
 
 
 class NonExistentBookException(Exception):

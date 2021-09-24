@@ -1,8 +1,5 @@
 from flask import Blueprint
-from flask import request, render_template, url_for
-
-import library.adapters.repository as repo
-import library.book.services as services
+from flask import render_template
 
 home_blueprint = Blueprint("home_bp", __name__)
 

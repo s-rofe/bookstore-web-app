@@ -1,6 +1,5 @@
 import pytest
 import library.reading_list.services as services
-from library.domain.model import Book, User
 
 
 def test_read_a_book(in_memory_repo):

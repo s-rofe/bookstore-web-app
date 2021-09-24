@@ -1,5 +1,5 @@
 import pytest
-from flask import session, request, url_for
+from flask import session
 
 
 def test_register(client):

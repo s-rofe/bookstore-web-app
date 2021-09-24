@@ -1,12 +1,13 @@
+from better_profanity import profanity
 from flask import Blueprint
 from flask import request, render_template, url_for, session, redirect
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, SelectField, HiddenField
-from wtforms.validators import DataRequired, Length, ValidationError
-from better_profanity import profanity
-from library.authentication.authentication import login_required
+from wtforms import TextAreaField, SubmitField, SelectField, HiddenField
+from wtforms.validators import Length, ValidationError
+
 import library.adapters.repository as repo
 import library.reviews.services as services
+from library.authentication.authentication import login_required
 
 reviews_blueprint = Blueprint("reviews_bp", __name__)
 

@@ -1,5 +1,5 @@
 from library.adapters.repository import AbstractRepository
-from library.domain.model import Book, Author, Publisher, User
+from library.domain.model import Book, User
 
 
 class NonExistentBookException(Exception):
