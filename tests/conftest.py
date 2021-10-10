@@ -2,7 +2,8 @@ import pytest
 
 from pathlib import Path
 from library import create_app
-from library.adapters.memory_repository import MemoryRepository, populate
+from library.adapters.memory_repository import MemoryRepository
+from library.adapters.repository_populate import populate
 from library.adapters.jsondatareader import BooksJSONReader
 from utils import get_project_root
 
@@ -22,7 +23,8 @@ def client():
     test_app = create_app({
         'TESTING': True,
         'TEST_DATA_PATH': TEST_DATA_PATH,
-        'WTF_CSRF_ENABLED': False
+        'WTF_CSRF_ENABLED': False,
+        'REPOSITORY': 'memory'
     })
     return test_app.test_client()
 

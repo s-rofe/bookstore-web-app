@@ -106,6 +106,7 @@ class AbstractRepository(abc.ABC):
     def add_read_book(self, book: Book, user: User):
         raise NotImplementedError
 
+    @abc.abstractmethod
     def remove_read_book(self, book: Book, user: User):
         raise NotImplementedError
 
