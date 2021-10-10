@@ -17,7 +17,7 @@ def add_to_reading_list():
     user = services.get_user(user_name, repo.repo_instance)
     services.read_a_book(book, user, repo.repo_instance)
     reading_list_length = services.get_reading_list_length(user_name, repo.repo_instance)
-    new_cursor = reading_list_length // 4
+    new_cursor = (reading_list_length - 1) // 4
     return redirect(url_for('reading_list_bp.reading_list', cursor=new_cursor))
 
 
