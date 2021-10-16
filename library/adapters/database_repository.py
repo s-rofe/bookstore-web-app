@@ -52,16 +52,24 @@ class SqlAlchemyRepository(AbstractRepository):
         self._session_cm.reset_session()
 
     def add_book(self, book: Book):
-        pass
+        with self._session_cm as scm:
+            scm.session.add(book)
+            scm.commit()
 
     def add_author(self, author: Author):
-        pass
+        with self._session_cm as scm:
+            scm.session.add(author)
+            scm.commit()
 
     def add_publisher(self, publisher: Publisher):
-        pass
+        with self._session_cm as scm:
+            scm.session.add(publisher)
+            scm.commit()
 
     def add_release_year(self, release_year):
-        pass
+        with self._session_cm as scm:
+            scm.session.add(release_year)
+            scm.commit()
 
     def get_authors(self):
         pass
@@ -73,13 +81,17 @@ class SqlAlchemyRepository(AbstractRepository):
         pass
 
     def add_user(self, user: User):
-        pass
+        with self._session_cm as scm:
+            scm.session.add(user)
+            scm.commit()
 
     def get_user(self, user_name):
         pass
 
     def add_review(self, review: Review):
-        pass
+        with self._session_cm as scm:
+            scm.session.add(review)
+            scm.commit()
 
     def get_reviews(self, book_id):
         pass
