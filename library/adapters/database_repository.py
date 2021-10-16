@@ -164,6 +164,10 @@ class SqlAlchemyRepository(AbstractRepository):
         reviews = self._session_cm.session.query(book_id).all()
         return len(reviews)
 
+    def get_reading_list(self, user_name):
+        user = self.get_user(user_name)
+        return user.read_books
+
     def get_reading_list_length(self, user_name):
         pass
 
@@ -174,9 +178,6 @@ class SqlAlchemyRepository(AbstractRepository):
         pass
 
     def remove_read_book(self, book: Book, user: User):
-        pass
-
-    def get_reading_list(self, user_name):
         pass
 
     def set_stored_url(self, url):
