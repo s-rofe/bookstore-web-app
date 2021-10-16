@@ -161,7 +161,8 @@ class SqlAlchemyRepository(AbstractRepository):
         book.increase_total_ratings(count)
 
     def get_review_count(self, book_id):
-        pass
+        reviews = self._session_cm.session.query(book_id).all()
+        return len(reviews)
 
     def get_reading_list_length(self, user_name):
         pass
