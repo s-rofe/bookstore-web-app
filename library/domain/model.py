@@ -238,7 +238,7 @@ class Review:
         if isinstance(book, Book):
             self.__book = book
         else:
-            self.__book = None
+            raise ValueError
 
         if isinstance(review_text, str):
             self.__review_text = review_text.strip()
