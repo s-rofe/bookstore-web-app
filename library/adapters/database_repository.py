@@ -169,7 +169,8 @@ class SqlAlchemyRepository(AbstractRepository):
         return user.read_books
 
     def get_reading_list_length(self, user_name):
-        pass
+        user = self.get_user(user_name)
+        return len(user.read_books)
 
     def add_review_to_user(self, review, user_name):
         pass
