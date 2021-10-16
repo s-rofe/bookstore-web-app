@@ -39,6 +39,8 @@ reviews_table = Table(
     'reviews', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('book', ForeignKey('books.id')),
+    #Column('users', ForeignKey('users.id')),
+    # we dont needs author ID?
     Column('review_text', String(1024), nullable=False),
     Column('rating', Integer, nullable=False),
     Column('author', ForeignKey('users.user_name')),
@@ -54,12 +56,12 @@ users_table = Table(
     Column('reviews', ForeignKey('reviews.id')),
     Column('pages_read', Integer, nullable=False)
 )
+
 book_authors_table = Table(
     'book_authors', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
     Column('book_id', ForeignKey('books.id')),
     Column('author_id', ForeignKey('authors.id'))
-
 )
 
 
