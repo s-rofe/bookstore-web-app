@@ -179,7 +179,7 @@ class SqlAlchemyRepository(AbstractRepository):
         pass
 
     def set_stored_url(self, url):
-        pass
+        self.__stored_url = url
 
     def get_stored_url(self):
-        pass
+        return self.__stored_url
