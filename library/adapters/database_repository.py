@@ -67,26 +67,30 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def add_release_year(self, release_year):
-        with self._session_cm as scm:
-            scm.session.add(release_year)
-            scm.commit()
+        # we dont use a release_year list in this repo
+        # could use database_mode to make it only for the memory repo, or just pass if that works
+        pass
 
     def get_authors(self):
-        pass
+        authors = self._session_cm.session.query(Author).all()
+        return authors
 
     def get_publishers(self):
-        pass
+        publishers = self._session_cm.session.query(Publisher).all()
+        return publishers
 
     def get_release_years(self):
-        pass
+        release_years = self._session_cm.session.query(Book.book_id).all()
+        return release_years
 
     def add_user(self, user: User):
         with self._session_cm as scm:
             scm.session.add(user)
             scm.commit()
 
-    def get_user(self, user_name):
-        pass
+    def get_user(self, new_user_name):
+        user = self._session_cm.session.query(User.user_name).filter(User.user_name == new_user_name).one()
+        return user
 
     def add_review(self, review: Review):
         with self._session_cm as scm:
@@ -94,34 +98,67 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def get_reviews(self, book_id):
-        pass
+        reviews = self._session_cm.session.query(Review.book).filter(Book.book_id == book_id).all()
+        return reviews
 
     def get_all_books(self):
-        pass
+        books = self._session_cm.session.query(Book).all()
+        return books
 
     def get_book_by_id(self, id: int):
-        pass
+        book = self._session_cm.session.query(Book).filter(Book.book_id == id).one()
+        return book
 
     def get_number_of_books(self):
-        pass
+        books = self._session_cm.session.query(Book).all()
+        return len(books)
 
     def get_page_of_books(self, cursor, books_per_page, book_list=None):
-        pass
+        if book_list is None:
+            book_list = self._session_cm.session.query(Book).all()
+        if cursor * books_per_page + books_per_page >= self.get_number_of_books():
+            return book_list[cursor * books_per_page:]
+        else:
+            return book_list[cursor * books_per_page: cursor * books_per_page + books_per_page]
 
-    def get_books_with_author(self, author):
-        pass
+    def get_books_with_author(self, author_name):
+        author_name = author_name.lower()
+        book_list = []
+        all_books = self.get_all_books()
+        for book in all_books:
+            for author in book.authors:
+                author_db_name = author.full_name.lower()
+                if author_name in author_db_name:
+                    book_list.append(book)
+        return book_list
 
-    def get_books_with_publisher(self, publisher):
-        pass
+    def get_books_with_publisher(self, publisher_name):
+        book_list = []
+        publisher_name = publisher_name.lower()
+        all_books = self.get_all_books()
+        for book in all_books:
+            pub_name = book.publisher.name.lower()
+            if publisher_name in pub_name:
+                book_list.append(book)
+        return book_list
 
     def get_books_with_release_year(self, release_year):
-        pass
+        book_list = self._session_cm.session.query(Book).filter(Book.release_year == release_year).all()
+        return book_list
 
     def get_books_by_title(self, title):
-        pass
+        book_list = []
+        title = title.lower()
+        all_books = self.get_all_books()
+        for book in all_books:
+            book_title = book.title.lower()
+            if title in book_title:
+                book_list.append(book)
+        return book_list
 
     def increase_review_count(self, book_id, count):
-        pass
+        book = self._session_cm.session.query(Book).filter(Book.book_id == book_id).one()
+        book.increase_total_ratings(count)
 
     def get_review_count(self, book_id):
         pass
