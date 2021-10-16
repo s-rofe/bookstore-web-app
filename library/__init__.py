@@ -30,7 +30,8 @@ def create_app(test_config=None):
     if app.config['REPOSITORY'] == 'memory':
         # Create the repo object and populate it (for now only does books)
         repo.repo_instance = MemoryRepository()
-        populate(data_path, repo.repo_instance)
+        database_mode = False
+        populate(data_path, repo.repo_instance, database_mode)
 
     elif app.config['REPOSITORY'] == 'database':
         database_uri = app.config['SQLALCHEMY_DATABASE_URI']
@@ -51,8 +52,8 @@ def create_app(test_config=None):
 
             # Generate mappings that map domain model classes to the database tables.
             map_model_to_tables()
-
-            populate(data_path, repo.repo_instance)
+            database_mode = True
+            populate(data_path, repo.repo_instance, database_mode)
             print("FINISHED")
 
         else:

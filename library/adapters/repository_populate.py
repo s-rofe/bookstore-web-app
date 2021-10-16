@@ -45,7 +45,8 @@ def load_reviews(repo):
         repo.add_review(review)
 
 
-def load_json_data(book_dataset, repo):
+def load_json_data(book_dataset, repo, database_mode):
+    # Not sure if database mode is needed with our implementation, If duplicates occur then yes
     for book in book_dataset:
         repo.add_book(book)
         for author in book.authors:
@@ -54,7 +55,7 @@ def load_json_data(book_dataset, repo):
         repo.add_release_year(book.release_year)
 
 
-def populate(data_path, repo):
+def populate(data_path, repo, database_mode):
     # Get the dataset of books from the json files
     book_data_path = Path(data_path) / "comic_books_excerpt.json"
     author_data_path = Path(data_path) / "book_authors_excerpt.json"
@@ -63,7 +64,7 @@ def populate(data_path, repo):
         read_books.read_json_files()
 
     # Load the data
-    load_json_data(read_books.dataset_of_books, repo)
+    load_json_data(read_books.dataset_of_books, repo, database_mode)
     load_users(repo)
     load_reviews(repo)
 
