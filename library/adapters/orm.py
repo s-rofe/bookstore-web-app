@@ -53,7 +53,7 @@ users_table = Table(
     Column('user_name', String(255), unique=True, nullable=False),
     Column('password', String(255), nullable=False),
     Column('read_books', ForeignKey('books.id')),
-    Column('reviews', ForeignKey('reviews.id')),
+    # Column('reviews', ForeignKey('reviews.id')),
     Column('pages_read', Integer, nullable=False)
 )
 
@@ -97,7 +97,7 @@ def map_model_to_tables():
         '_Review__review_text': reviews_table.columns.review_text,
         '_Review__rating': reviews_table.columns.rating,
         # ???????
-        '_Review__author': relationship(User, backref='_User_user_name'),
+        # '_Review__author': relationship(User, backref='_User__user_name'),
         '_Review__timestamp': reviews_table.columns.timestamp
     })
 
@@ -106,6 +106,6 @@ def map_model_to_tables():
         '_User__password': users_table.columns.password,
         '_User__read_books': relationship(Book),
         # ?????
-        '_User__reviews': relationship(Review),
+        '_User__reviews': relationship(Review, backref='_Review__author'),
         '_User__pages_read': users_table.columns.pages_read
     })
