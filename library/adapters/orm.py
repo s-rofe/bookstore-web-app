@@ -1,9 +1,8 @@
 from sqlalchemy import (
-    Table, MetaData, Column, Integer, String, Date, DateTime,
-    ForeignKey, Boolean, Time
+    Table, MetaData, Column, Integer, String, DateTime,
+    ForeignKey, Boolean
 )
-from sqlalchemy.dialects.postgresql import ARRAY
-from sqlalchemy.orm import mapper, relationship, synonym
+from sqlalchemy.orm import mapper, relationship
 
 from library.domain.model import Author, Publisher, Book, Review, User
 
@@ -22,7 +21,7 @@ books_table = Table(
     Column('id', Integer, primary_key=True),
     Column('title', String(255), nullable=False),
     Column('description', String(1024)),
-    Column('publisher', ForeignKey('publishers.id')),
+    Column('publisher', Publisher),
     Column('authors', ForeignKey('authors.id')),
     Column('release_year', Integer),
     Column('ebook', Boolean),
@@ -43,7 +42,7 @@ reviews_table = Table(
     Column('review_text', String(1024), nullable=False),
     Column('rating', Integer, nullable=False),
     Column('author', ForeignKey('users.user_name')),
-    Column('timestamp', Time, nullable=False)
+    Column('timestamp', DateTime, nullable=False)
 )
 
 users_table = Table(
@@ -55,7 +54,56 @@ users_table = Table(
     Column('reviews', ForeignKey('reviews.id')),
     Column('pages_read', Integer, nullable=False)
 )
+book_authors_table = Table(
+    'book_authors', metadata,
+    Column('id', primary_key=True, autoincrement=True),
+    Column('book_id', ForeignKey('books.id')),
+    Column('author_id', ForeignKey('authors.id'))
+
+)
 
 
 def map_model_to_tables():
-    pass
+    mapper(Author, authors_table, properties={
+        '_Author__unique_id': authors_table.column.id,
+        '_Author__full_name': authors_table.column.full_name,
+        # One author can have many co_authors, 1 - many? or many to many?
+        # '_Author__authors_this_one_has_worked_with': relationship(Author, )
+    })
+
+    mapper(Book, books_table, properties={
+        '_Book__book_id': books_table.column.id,
+        '_Book__title': books_table.column.title,
+        '_Book__description': books_table.column.description,
+        # Book can have 0 or 1 publisher but publisher doesnt store its books
+        '_Book__publisher': relationship(Publisher),
+        # Book can have many authors, authors can have many books...but authors dont store their books
+        # So no back populates?
+        '_Book__authors': relationship(Author, secondary=book_authors_table),
+        '_Book__release_year': books_table.column.release_year,
+        '_Book__ebook': books_table.column.ebook,
+        '_Book__num_pages': books_table.column.num_pages,
+        '_Book_total_ratings': books_table.column.total_ratings
+    })
+
+    mapper(Publisher, publishers_table, properties={
+        '_Publisher__name': publishers_table.column.name
+    })
+
+    mapper(Review, reviews_table, properties={
+        '_Review__book': relationship(Book),
+        '_Review__review_text': reviews_table.column.review_text,
+        '_Review__rating': reviews_table.column.rating,
+        # ???????
+        '_Review__author': relationship(User, backref='_User_user_name'),
+        '_Review__timestamp': reviews_table.column.timestamp
+    })
+
+    mapper(User, users_table, properties={
+        '_User__user_name': users_table.column.user_name,
+        '_User__password': users_table.column.password,
+        '_User__read_books': relationship(Book),
+        # ?????
+        '_User__reviews': relationship(Review),
+        '_User__pages_read': users_table.column.pages_read
+    })
