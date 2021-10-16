@@ -177,10 +177,10 @@ class SqlAlchemyRepository(AbstractRepository):
         user.add_review(review)
 
     def add_read_book(self, book: Book, user: User):
-        pass
+        user.read_a_book(book)
 
     def remove_read_book(self, book: Book, user: User):
-        pass
+        user.remove_read_book(book)
 
     def set_stored_url(self, url):
         self.__stored_url = url
