@@ -69,8 +69,8 @@ def map_model_to_tables():
     mapper(Author, authors_table, properties={
         '_Author__unique_id': authors_table.columns.id,
         '_Author__full_name': authors_table.columns.full_name,
-        # One author can have many co_authors, 1 - many? or many to many?
-        '_Author__authors_this_one_has_worked_with': relationship(Author)
+        # One author can have many co_authors, 0, 1 - many?
+        # '_Author__authors_this_one_has_worked_with': relationship(Author)
     })
 
     mapper(Book, books_table, properties={
@@ -96,8 +96,7 @@ def map_model_to_tables():
         '_Review__book': relationship(Book),
         '_Review__review_text': reviews_table.columns.review_text,
         '_Review__rating': reviews_table.columns.rating,
-        # ???????
-        # '_Review__author': relationship(User, backref='_User__user_name'),
+        # '_Review__author': reviews_table.columns.author,
         '_Review__timestamp': reviews_table.columns.timestamp
     })
 
