@@ -44,6 +44,7 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def __init__(self, session_factory):
         self._session_cm = SessionContextManager(session_factory)
+        self.__stored_url = None
 
     def close_session(self):
         self._session_cm.close_current_session()
@@ -59,7 +60,6 @@ class SqlAlchemyRepository(AbstractRepository):
     def add_author(self, author: Author):
         author_id = author.unique_id
         with self._session_cm as scm:
-            print(scm.session.query(Author).filter(Author._Author__unique_id == author_id).first() is None)
             if scm.session.query(Author).filter(Author._Author__unique_id == author_id).first() is None:
                 scm.session.add(author)
                 scm.commit()
