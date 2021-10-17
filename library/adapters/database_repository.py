@@ -162,7 +162,7 @@ class SqlAlchemyRepository(AbstractRepository):
         return book_list
 
     def increase_review_count(self, book_id, count):
-        book = self._session_cm.session.query(Book).filter(Book._Book_book_id == book_id).one()
+        book = self._session_cm.session.query(Book).filter(Book._Book__book_id == book_id).one()
         book.increase_total_ratings(count)
 
     def get_review_count(self, book_id):
@@ -182,7 +182,11 @@ class SqlAlchemyRepository(AbstractRepository):
         user.add_review(review)
 
     def add_read_book(self, book: Book, user: User):
-        user.read_a_book(book)
+        user_entry = self._session_cm.session.query(User).filter(User._User__user_name == user.user_name).one()
+        user_id = user_entry.id
+        self._session_cm.session.execute('INSERT INTO user_reading_list (user_id, book_id)'
+                                         'VALUES({user_id}, {book_id})'.format(user_id=user_id, book_id=book.book_id))
+        self._session_cm.session.commit()
 
     def remove_read_book(self, book: Book, user: User):
         user.remove_read_book(book)
