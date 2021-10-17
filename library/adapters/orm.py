@@ -22,7 +22,7 @@ books_table = Table(
     Column('title', String(255), nullable=False),
     Column('description', String(1024)),
     Column('book_publisher', ForeignKey('publishers.id')),
-    Column('authors', ForeignKey('authors.id')),
+    Column('book_authors', ForeignKey('authors.id')),
     Column('release_year', Integer),
     Column('ebook', Boolean),
     Column('num_pages', Integer),
@@ -38,7 +38,7 @@ publishers_table = Table(
 reviews_table = Table(
     'reviews', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('book', ForeignKey('books.id')),
+    Column('reviewed_book', ForeignKey('books.id')),
     #Column('users', ForeignKey('users.id')),
     # we dont needs author ID?
     Column('review_text', String(1024), nullable=False),

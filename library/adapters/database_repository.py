@@ -94,7 +94,7 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def get_user(self, new_user_name):
-        user = self._session_cm.session.query(User.user_name).filter(User.user_name == new_user_name).one()
+        user = self._session_cm.session.query(User).filter(User._User__user_name == new_user_name).one()
         return user
 
     def add_review(self, review: Review):
@@ -103,7 +103,7 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def get_reviews(self, book_id):
-        reviews = self._session_cm.session.query(Review.book).filter(Book._Book__book_id == book_id).all()
+        reviews = self._session_cm.session.query(Review.book).filter(Book.book_id == book_id).all()
         return reviews
 
     def get_all_books(self):
@@ -148,7 +148,7 @@ class SqlAlchemyRepository(AbstractRepository):
         return book_list
 
     def get_books_with_release_year(self, release_year):
-        book_list = self._session_cm.session.query(Book).filter(Book.release_year == release_year).all()
+        book_list = self._session_cm.session.query(Book).filter(Book._Book__release_year == release_year).all()
         return book_list
 
     def get_books_by_title(self, title):
@@ -162,7 +162,7 @@ class SqlAlchemyRepository(AbstractRepository):
         return book_list
 
     def increase_review_count(self, book_id, count):
-        book = self._session_cm.session.query(Book).filter(Book.book_id == book_id).one()
+        book = self._session_cm.session.query(Book).filter(Book._Book_book_id == book_id).one()
         book.increase_total_ratings(count)
 
     def get_review_count(self, book_id):
