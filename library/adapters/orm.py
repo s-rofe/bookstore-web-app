@@ -21,7 +21,7 @@ books_table = Table(
     Column('id', Integer, primary_key=True),
     Column('title', String(255), nullable=False),
     Column('description', String(1024)),
-    Column('publisher', ForeignKey('publishers.id')),
+    Column('book_publisher', ForeignKey('publishers.id')),
     Column('authors', ForeignKey('authors.id')),
     Column('release_year', Integer),
     Column('ebook', Boolean),
@@ -32,7 +32,7 @@ books_table = Table(
 publishers_table = Table(
     'publishers', metadata,
     Column('id', Integer, primary_key=True, autoincrement=True),
-    Column('name', String(255), nullable=False)
+    Column('name', String(255), nullable=False),
 )
 
 reviews_table = Table(
@@ -84,18 +84,18 @@ def map_model_to_tables():
         '_Book__title': books_table.columns.title,
         '_Book__description': books_table.columns.description,
         # Book can have 0 or 1 publisher but publisher doesnt store its books
-        # '_Book__publisher': relationship(Publisher),
         # Book can have many authors, authors can have many books...but authors dont store their books
         # So no back populates?
+        '_Book__publisher': relationship(Publisher),
         '_Book__authors': relationship(Author, secondary=book_authors_table),
         '_Book__release_year': books_table.columns.release_year,
         '_Book__ebook': books_table.columns.ebook,
         '_Book__num_pages': books_table.columns.num_pages,
-        '_Book_total_ratings': books_table.columns.total_ratings
+        '_Book__total_ratings': books_table.columns.total_ratings,
     })
 
     mapper(Publisher, publishers_table, properties={
-        '_Publisher__name': publishers_table.columns.name
+        '_Publisher__name': publishers_table.columns.name,
     })
 
     mapper(Review, reviews_table, properties={
