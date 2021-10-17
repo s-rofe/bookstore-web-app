@@ -99,7 +99,7 @@ def map_model_to_tables():
     })
 
     mapper(Review, reviews_table, properties={
-        '_Review__book': relationship(Book),
+        #'_Review__book': relationship(Book),
         '_Review__review_text': reviews_table.columns.review_text,
         '_Review__rating': reviews_table.columns.rating,
         # '_Review__author': reviews_table.columns.author,

@@ -250,8 +250,7 @@ class Review:
         else:
             raise ValueError
 
-        if isinstance(author, str) and author != "":
-            self.__author = author
+
 
         self.__timestamp = datetime.now()
 
@@ -270,6 +269,10 @@ class Review:
     @property
     def author(self) -> str:
         return self.__author
+
+    @author.setter
+    def author(self, author: str):
+        self.__author = author
 
     @property
     def timestamp(self) -> datetime:
