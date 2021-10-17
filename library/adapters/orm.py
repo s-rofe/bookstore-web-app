@@ -99,10 +99,10 @@ def map_model_to_tables():
     })
 
     mapper(Review, reviews_table, properties={
-        #'_Review__book': relationship(Book),
+        '_Review__book': relationship(Book),
         '_Review__review_text': reviews_table.columns.review_text,
         '_Review__rating': reviews_table.columns.rating,
-        # '_Review__author': reviews_table.columns.author,
+        '_Review__author': reviews_table.columns.author,
         '_Review__timestamp': reviews_table.columns.timestamp
     })
 
@@ -111,6 +111,6 @@ def map_model_to_tables():
         '_User__password': users_table.columns.password,
         '_User__read_books': relationship(Book, secondary=user_reading_list),
         # ?????
-        '_User__reviews': relationship(Review, backref='_Review__author'),
+        '_User__reviews': relationship(Review),
         '_User__pages_read': users_table.columns.pages_read
     })
