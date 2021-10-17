@@ -103,7 +103,7 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def get_reviews(self, book_id):
-        reviews = self._session_cm.session.query(Review).filter(Book.book_id == book_id).all()
+        reviews = self._session_cm.session.query(Review.reviewed_book).filter(Book._Book__book_id == book_id).all()
         return reviews
 
     def get_all_books(self):
