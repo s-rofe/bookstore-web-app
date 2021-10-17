@@ -85,7 +85,8 @@ class SqlAlchemyRepository(AbstractRepository):
         return publishers
 
     def get_release_years(self):
-        release_years = self._session_cm.session.query(Book._Book__release_years).all()
+        books = self._session_cm.session.query(Book).all()
+        release_years = [book.release_year for book in books]
         return release_years
 
     def add_user(self, user: User):
