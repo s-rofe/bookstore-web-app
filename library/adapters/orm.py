@@ -26,7 +26,7 @@ books_table = Table(
     Column('release_year', Integer),
     Column('ebook', Boolean),
     Column('num_pages', Integer),
-    Column('total_ratings', Integer, nullable=False)
+    Column('total_ratings', Integer)
 )
 
 publishers_table = Table(
@@ -78,7 +78,7 @@ def map_model_to_tables():
         '_Book__title': books_table.columns.title,
         '_Book__description': books_table.columns.description,
         # Book can have 0 or 1 publisher but publisher doesnt store its books
-        '_Book__publisher': relationship(Publisher),
+        # '_Book__publisher': relationship(Publisher),
         # Book can have many authors, authors can have many books...but authors dont store their books
         # So no back populates?
         '_Book__authors': relationship(Author, secondary=book_authors_table),
