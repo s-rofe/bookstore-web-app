@@ -190,6 +190,10 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def remove_read_book(self, book: Book, user: User):
         user.remove_read_book(book)
+        user_entry = self._session_cm.session.query(User).filter(User._User__user_name == user.user_name).one()
+        user_id = user_entry.id
+        self._session_cm.session.execute('DELETE FROM user_reading_list WHERE user_id = {user_id} AND book_id = {book_id}'.format(user_id=user_id, book_id=book.book_id))
+        self._session_cm.session.commit()
 
     def set_stored_url(self, url):
         self.__stored_url = url
