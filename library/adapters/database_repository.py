@@ -57,14 +57,19 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def add_author(self, author: Author):
+        author_id = author.unique_id
         with self._session_cm as scm:
-            scm.session.add(author)
-            scm.commit()
+            print(scm.session.query(Author).filter(Author._Author__unique_id == author_id).first() is None)
+            if scm.session.query(Author).filter(Author._Author__unique_id == author_id).first() is None:
+                scm.session.add(author)
+                scm.commit()
 
     def add_publisher(self, publisher: Publisher):
+        pub_name = publisher.name
         with self._session_cm as scm:
-            scm.session.add(publisher)
-            scm.commit()
+            if scm.session.query(Publisher).filter(Publisher._Publisher__name == pub_name).first() == None:
+                scm.session.add(publisher)
+                scm.commit()
 
     def add_release_year(self, release_year):
         # we dont use a release_year list in this repo
@@ -80,7 +85,7 @@ class SqlAlchemyRepository(AbstractRepository):
         return publishers
 
     def get_release_years(self):
-        release_years = self._session_cm.session.query(Book.book_id).all()
+        release_years = self._session_cm.session.query(Book._Book__release_years).all()
         return release_years
 
     def add_user(self, user: User):
@@ -98,7 +103,7 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def get_reviews(self, book_id):
-        reviews = self._session_cm.session.query(Review.book).filter(Book.book_id == book_id).all()
+        reviews = self._session_cm.session.query(Review.book).filter(Book._Book__book_id == book_id).all()
         return reviews
 
     def get_all_books(self):
@@ -106,7 +111,7 @@ class SqlAlchemyRepository(AbstractRepository):
         return books
 
     def get_book_by_id(self, id: int):
-        book = self._session_cm.session.query(Book).filter(Book.book_id == id).one()
+        book = self._session_cm.session.query(Book).filter(Book._Book__book_id == id).one()
         return book
 
     def get_number_of_books(self):

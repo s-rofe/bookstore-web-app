@@ -32,36 +32,45 @@ class BooksJSONReader:
         return authors_json
 
     def read_json_files(self):
-        authors_json = self.read_authors_file()
-        books_json = self.read_books_file()
+        try:
+            book_file = open(self.__books_file_name, "r")
+            author_file = open(self.__authors_file_name, "r")
+        except FileNotFoundError:
+            raise ValueError
 
-        for book_json in books_json:
-            book_instance = Book(int(book_json['book_id']), book_json['title'])
-            book_instance.publisher = Publisher(book_json['publisher'])
-            if book_json['publication_year'] != "":
-                book_instance.release_year = int(book_json['publication_year'])
-            if book_json['is_ebook'].lower() == 'false':
-                book_instance.ebook = False
-            else:
-                if book_json['is_ebook'].lower() == 'true':
-                    book_instance.ebook = True
-            book_instance.description = book_json['description']
-            if book_json['num_pages'] != "":
-                book_instance.num_pages = int(book_json['num_pages'])
-            if book_json['ratings_count'] != "":
-                book_instance.total_ratings = int(book_json['ratings_count'])
+        self.__dataset_of_books = []
+        author_list = []
+        for line in author_file:
+            author_data = json.loads(line)
+            temp_author = Author(int(author_data.get("author_id")), author_data.get("name"))
+            author_list.append(temp_author)
 
-            # extract the author ids:
-            list_of_authors_ids = book_json['authors']
-            for author_id in list_of_authors_ids:
+        for line in book_file:
+            data = json.loads(line)
+            temp_book = Book(int(data.get("book_id")), data.get("title"))
+            temp_book.description = data.get("description")
+            temp_book.publisher = Publisher(data.get("publisher"))
+            try:
+                temp_book.release_year = int(data.get("publication_year"))
+            except ValueError:
+                pass
+            if data.get("is_ebook") == "true":
+                temp_book.ebook = True
+            elif data.get("is_ebook") == "false":
+                temp_book.ebook = False
 
-                numerical_id = int(author_id['author_id'])
-                # We assume book authors are available in the authors file,
-                # otherwise more complex handling is required.
-                author_name = None
-                for author_json in authors_json:
-                    if int(author_json['author_id']) == numerical_id:
-                        author_name = author_json['name']
-                book_instance.add_author(Author(numerical_id, author_name))
+            if data.get('num_pages') != "":
+                temp_book.num_pages = int(data.get('num_pages'))
+            if data.get('ratings_count') != "":
+                temp_book.total_ratings = int(data.get('ratings_count'))
 
-            self.__dataset_of_books.append(book_instance)
+            authors = data.get("authors")
+            author_ids = []
+            for auth in authors:
+                author_ids.append(int(auth.get("author_id")))
+
+            for author in author_list:
+                if author.unique_id in author_ids:
+                    temp_book.add_author(author)
+            self.__dataset_of_books.append(temp_book)
+
