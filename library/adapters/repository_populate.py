@@ -70,5 +70,5 @@ def populate(data_path, repo, database_mode):
 
     # give user test1 a book in the reading list for testing
     book = repo.get_book_by_id(25742454)
-    user = repo.get_user("test1")
-    repo.add_read_book(book, user)
+    #user = repo.get_user("test1")
+    #repo.add_read_book(book, user)

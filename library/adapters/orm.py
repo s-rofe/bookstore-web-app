@@ -63,6 +63,12 @@ book_authors_table = Table(
     Column('book_id', ForeignKey('books.id')),
     Column('author_id', ForeignKey('authors.id'))
 )
+user_reading_list = Table(
+    'user_reading_list', metadata,
+    Column('id', Integer, primary_key=True, autoincrement=True),
+    Column('user_id', ForeignKey('users.id')),
+    Column('book_id', ForeignKey('books.id'))
+)
 
 
 def map_model_to_tables():
@@ -103,7 +109,7 @@ def map_model_to_tables():
     mapper(User, users_table, properties={
         '_User__user_name': users_table.columns.user_name,
         '_User__password': users_table.columns.password,
-        '_User__read_books': relationship(Book),
+        '_User__read_books': relationship(Book, secondary=user_reading_list),
         # ?????
         '_User__reviews': relationship(Review, backref='_Review__author'),
         '_User__pages_read': users_table.columns.pages_read
