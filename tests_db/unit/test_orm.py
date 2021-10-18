@@ -53,6 +53,17 @@ def insert_book(empty_session):
     return row[0]
 
 
+def make_author():
+    author = Author(123, "Bob Pancakes")
+    return author
+
+
+def insert_author(empty_session):
+    empty_session.execute('INSERT INTO authors (id, full_name) VALUES (123, "Bob Pancakes")')
+    row = empty_session.execute('SELECT id from authors').fetchone()
+    return row
+
+
 def insert_reviewed_book(empty_session):
     book_key = insert_book(empty_session)
     user_key = insert_user(empty_session)
@@ -133,7 +144,7 @@ def test_saving_of_books(empty_session):
 def test_save_reviewed_book(empty_session):
     # Create book User objects.
     book = make_book()
-    user = User("Harry", "Harry123")
+    user = make_user()
     rating = 1
 
     # Create a new Comment that is bidirectionally linked with the User and Article.
