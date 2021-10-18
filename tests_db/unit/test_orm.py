@@ -71,7 +71,7 @@ def make_publisher():
 
 def insert_publisher(empty_session):
     empty_session.execute('INSERT INTO publishers (name) VALUES ("Harry Potter")')
-    row = empty_session.execute('SELECT id from publisher').fetchone()
+    row = empty_session.execute('SELECT id from publishers').fetchone()
     return row
 
 
@@ -193,3 +193,35 @@ def test_saving_of_publisher(empty_session):
 
     rows = list(empty_session.execute('SELECT id, name FROM publishers WHERE id == {pub_key}'.format(pub_key=pub_key)))
     assert rows == [(pub_key, "Harry Potter")]
+
+
+def test_saving_of_author(empty_session):
+    author = make_author()
+
+    empty_session.add(author)
+    empty_session.commit()
+
+    rows = list(empty_session.execute('SELECT id FROM authors'))
+    auth_key = rows[0][0]
+
+    rows = list(empty_session.execute('SELECT id, full_name FROM authors WHERE id == {auth_key}'.format(auth_key=auth_key)))
+    assert rows == [(auth_key, "Bob Pancakes")]
+
+
+def test_loading_of_publisher(empty_session):
+    insert_publisher(empty_session)
+
+    expected = [
+        Publisher("Harry Potter"),
+    ]
+    assert empty_session.query(Publisher).all() == expected
+
+
+def test_loading_of_author(empty_session):
+    insert_author(empty_session)
+
+    expected = [
+        Author(123, "Bob Pancakes"),
+    ]
+    assert empty_session.query(Author).all() == expected
+
