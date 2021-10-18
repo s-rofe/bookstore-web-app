@@ -64,6 +64,17 @@ def insert_author(empty_session):
     return row
 
 
+def make_publisher():
+    pub = Publisher("Harry Potter")
+    return pub
+
+
+def insert_publisher(empty_session):
+    empty_session.execute('INSERT INTO publishers (name) VALUES ("Harry Potter")')
+    row = empty_session.execute('SELECT id from publisher').fetchone()
+    return row
+
+
 def insert_reviewed_book(empty_session):
     book_key = insert_book(empty_session)
     user_key = insert_user(empty_session)
