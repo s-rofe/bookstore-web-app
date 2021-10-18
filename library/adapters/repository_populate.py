@@ -51,8 +51,10 @@ def load_json_data(book_dataset, repo, database_mode):
         repo.add_book(book)
         for author in book.authors:
             repo.add_author(author)
-        repo.add_publisher(book.publisher)
-        repo.add_release_year(book.release_year)
+
+        if database_mode is False:
+            repo.add_publisher(book.publisher)
+            repo.add_release_year(book.release_year)
 
 
 def populate(data_path, repo, database_mode):
