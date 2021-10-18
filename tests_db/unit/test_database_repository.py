@@ -165,20 +165,14 @@ def test_get_books_by_title(session_factory):
     assert len(book_list) == 6
 
 
-def test_increase_review_count(session_factory):
-    repo = SqlAlchemyRepository(session_factory)
-    current_count = repo.get_review_count(27036539)
-    repo.increase_review_count(27036539, 1)
-    new_count = repo.get_review_count(27036539)
-    assert new_count == current_count + 1
-
-
-def test_get_review_count(session_factory):
-    pass
-
-
 def test_add_review_to_user(session_factory):
-    pass
+    repo = SqlAlchemyRepository(session_factory)
+    book = repo.get_book_by_id(27036539)
+    user = repo.get_user("test1")
+    review1 = Review(book, "This is a test", 2, user.user_name)
+    repo.add_review(review1)
+    user.add_review(review1)
+    assert user.reviews.index(review1) != ValueError
 
 
 def test_load_reviews(session_factory):
@@ -191,11 +185,15 @@ def test_load_reviews(session_factory):
 
 
 def test_get_reading_list(session_factory):
-    pass
+    repo = SqlAlchemyRepository(session_factory)
+    reading_list = repo.get_reading_list("test1")
+    assert reading_list != []
 
 
 def test_get_reading_list_length(session_factory):
-    pass
+    repo = SqlAlchemyRepository(session_factory)
+    reading_list = repo.get_reading_list_length("test1")
+    assert reading_list == 1
 
 
 def test_remove_read_book(session_factory):
@@ -209,7 +207,12 @@ def test_remove_read_book(session_factory):
 
 
 def test_add_read_book(session_factory):
-    pass
+    repo = SqlAlchemyRepository(session_factory)
+    book1 = repo.get_book_by_id(27036539)
+    user1 = repo.get_user("test1")
+    repo.add_read_book(book1, user1)
+    reading_list = repo.get_reading_list("test1")
+    assert reading_list.index(book1) != ValueError
 
 
 
