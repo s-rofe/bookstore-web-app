@@ -121,3 +121,10 @@ def test_loading_of_reviewed_book(empty_session):
     #for review in book.review:
     assert book is book
 
+def test_saving_of_books(empty_session):
+    book = make_book()
+    empty_session.add(book)
+    empty_session.commit()
+    rows = list(empty_session.execute('SELECT id, title  FROM books'))
+    assert rows == [(123,"Book Test")]
+
