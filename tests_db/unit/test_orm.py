@@ -180,3 +180,16 @@ def test_save_reviewed_book(empty_session):
     # tables.
     rows = list(empty_session.execute('SELECT reviewed_book, review_text FROM reviews'))
     assert rows == [(book_key, review_text)]
+
+
+def test_saving_of_publisher(empty_session):
+    pub = make_publisher()
+
+    empty_session.add(pub)
+    empty_session.commit()
+
+    rows = list(empty_session.execute('SELECT id FROM publishers'))
+    pub_key = rows[0][0]
+
+    rows = list(empty_session.execute('SELECT id, name FROM publishers WHERE id == {pub_key}'.format(pub_key=pub_key)))
+    assert rows == [(pub_key, "Harry Potter")]
