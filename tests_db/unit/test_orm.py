@@ -128,3 +128,29 @@ def test_saving_of_books(empty_session):
     rows = list(empty_session.execute('SELECT id, title  FROM books'))
     assert rows == [(123,"Book Test")]
 
+def test_save_reviewed_book(empty_session):
+    # Create book User objects.
+    book = make_book()
+    user = make_user()
+    rating = 1
+
+    # Create a new Comment that is bidirectionally linked with the User and Article.
+    review_text = "Some comment text."
+    comment = Review(book, review_text, rating, user)
+
+    # Save the new Article.
+    empty_session.add(book)
+    empty_session.commit()
+
+    # Test test_saving_of_article() checks for insertion into the articles table.
+    rows = list(empty_session.execute('SELECT id FROM books'))
+    book_key = rows[0][0]
+
+    # Test test_saving_of_users() checks for insertion into the users table.
+    rows = list(empty_session.execute('SELECT id FROM users'))
+    user_key = rows[0][0]
+
+    # Check that the comments table has a new record that links to the articles and users
+    # tables.
+    rows = list(empty_session.execute('SELECT user_id, article_id, comment FROM comments'))
+    assert rows == [(book_key, review_text, rating, user_key)]
