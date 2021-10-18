@@ -108,7 +108,6 @@ class SqlAlchemyRepository(AbstractRepository):
         books_reviews = [review for review in all_reviews if review.book.book_id == book_id]
         return books_reviews
 
-
     def get_all_books(self):
         books = self._session_cm.session.query(Book).all()
         return books
