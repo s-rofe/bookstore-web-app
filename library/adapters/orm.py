@@ -54,7 +54,7 @@ users_table = Table(
     Column('password', String(255), nullable=False),
     Column('read_books', ForeignKey('books.id')),
     # Column('reviews', ForeignKey('reviews.id')),
-    Column('pages_read', Integer, nullable=False)
+    Column('pages_read', Integer, nullable=True)
 )
 
 book_authors_table = Table(
