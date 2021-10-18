@@ -95,7 +95,7 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.commit()
 
     def get_user(self, new_user_name):
-        user = self._session_cm.session.query(User).filter(User._User__user_name == new_user_name).one()
+        user = self._session_cm.session.query(User).filter(User._User__user_name == new_user_name).one_or_none()
         return user
 
     def add_review(self, review: Review):
