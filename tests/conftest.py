@@ -14,7 +14,7 @@ TEST_DATA_PATH = get_project_root() / "tests" / "data"
 def in_memory_repo():
     # Create the repo object and populate it
     repo = MemoryRepository()
-    populate(TEST_DATA_PATH, repo)
+    populate(TEST_DATA_PATH, repo, False)
     return repo
 
 

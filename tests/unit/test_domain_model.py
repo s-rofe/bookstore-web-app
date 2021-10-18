@@ -323,8 +323,8 @@ class TestReview:
 
     def test_wrong_book_object(self):
         publisher = Publisher("DC Comics")
-        review = Review(publisher, "I liked this book", 4, 'test4')
-        assert review.book is None
+        with pytest.raises(ValueError):
+            review = Review(publisher, "I liked this book", 4, 'test4')
 
 class TestUser:
 
