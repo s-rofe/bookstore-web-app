@@ -8,7 +8,7 @@ from library.domain.model import User, Book, Publisher, Author, Review
 
 
 def make_user():
-    user = User("Andrew", "111")
+    user = User("Andrew", "Andrew123")
     return user
 
 
@@ -140,6 +140,7 @@ def test_save_reviewed_book(empty_session):
 
     # Save the new Article.
     empty_session.add(book)
+    empty_session.add(user)
     empty_session.commit()
 
     # Test test_saving_of_article() checks for insertion into the articles table.
@@ -148,9 +149,11 @@ def test_save_reviewed_book(empty_session):
 
     # Test test_saving_of_users() checks for insertion into the users table.
     rows = list(empty_session.execute('SELECT id FROM users'))
+    print(rows)
     user_key = rows[0][0]
 
     # Check that the comments table has a new record that links to the articles and users
     # tables.
-    rows = list(empty_session.execute('SELECT user_id, article_id, comment FROM comments'))
-    assert rows == [(book_key, review_text, rating, user_key)]
+    rows = list(empty_session.execute('SELECT reviewed_book, review_text FROM reviews'))
+    print(rows)
+    #assert rows == [(book_key, review_text, rating, user_key)]
