@@ -251,6 +251,9 @@ class Review:
         else:
             raise ValueError
 
+        if isinstance(author, str) and author != "":
+            self.__author = author
+
         self.__timestamp = datetime.now()
 
     @property
