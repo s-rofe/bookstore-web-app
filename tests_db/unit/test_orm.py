@@ -53,8 +53,8 @@ def insert_book(empty_session):
     return row[0]
 
 
-def insert_reviewed_article(empty_session):
-    article_key = insert_book(empty_session)
+def insert_reviewed_book(empty_session):
+    book_key = insert_book(empty_session)
     user_key = insert_user(empty_session)
 
     timestamp_1 = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -64,7 +64,7 @@ def insert_reviewed_article(empty_session):
         'INSERT INTO reviews (author, reviewed_book, review_text, rating, timestamp) VALUES '
         '(:author, :reviewed_book, "Comment 1", "3", :timestamp_1),'
         '(:author, :reviewed_book, "Comment 2", "3", :timestamp_2)',
-        {'author': user_key, 'reviewed_book': article_key, 'timestamp_1': timestamp_1, 'timestamp_2': timestamp_2}
+        {'author': user_key, 'reviewed_book': book_key, 'timestamp_1': timestamp_1, 'timestamp_2': timestamp_2}
     )
 
     row = empty_session.execute('SELECT id from books').fetchone()
@@ -103,7 +103,7 @@ def test_saving_of_users_with_common_user_name(empty_session):
         empty_session.commit()
 
 
-def test_loading_of_article(empty_session):
+def test_loading_of_book(empty_session):
     book_key = insert_book(empty_session)
     expected_book = make_book()
     fetched_book = empty_session.query(Book).one()
@@ -112,11 +112,12 @@ def test_loading_of_article(empty_session):
     assert book_key == fetched_book.book_id
 
 
-def test_loading_of_commented_article(empty_session):
-    insert_reviewed_article(empty_session)
+def test_loading_of_reviewed_book(empty_session):
+    insert_reviewed_book(empty_session)
 
     rows = empty_session.query(Book).all()
     book = rows[0]
 
-    for review in book.reviews:
-        assert review.book is book
+    #for review in book.review:
+    assert book is book
+
