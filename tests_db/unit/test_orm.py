@@ -121,6 +121,7 @@ def test_loading_of_reviewed_book(empty_session):
     #for review in book.review:
     assert book is book
 
+
 def test_saving_of_books(empty_session):
     book = make_book()
     empty_session.add(book)
@@ -128,10 +129,11 @@ def test_saving_of_books(empty_session):
     rows = list(empty_session.execute('SELECT id, title  FROM books'))
     assert rows == [(123,"Book Test")]
 
+
 def test_save_reviewed_book(empty_session):
     # Create book User objects.
     book = make_book()
-    user = make_user()
+    user = User("Harry", "Harry123")
     rating = 1
 
     # Create a new Comment that is bidirectionally linked with the User and Article.
@@ -141,6 +143,7 @@ def test_save_reviewed_book(empty_session):
     # Save the new Article.
     empty_session.add(book)
     empty_session.add(user)
+    empty_session.add(comment)
     empty_session.commit()
 
     # Test test_saving_of_article() checks for insertion into the articles table.
@@ -148,12 +151,10 @@ def test_save_reviewed_book(empty_session):
     book_key = rows[0][0]
 
     # Test test_saving_of_users() checks for insertion into the users table.
-    rows = list(empty_session.execute('SELECT id FROM users'))
-    print(rows)
+    rows = list(empty_session.execute('SELECT * FROM users'))
     user_key = rows[0][0]
 
     # Check that the comments table has a new record that links to the articles and users
     # tables.
     rows = list(empty_session.execute('SELECT reviewed_book, review_text FROM reviews'))
-    print(rows)
-    #assert rows == [(book_key, review_text, rating, user_key)]
+    assert rows == [(book_key, review_text)]
