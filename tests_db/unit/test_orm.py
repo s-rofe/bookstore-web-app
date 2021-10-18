@@ -6,9 +6,11 @@ from sqlalchemy.exc import IntegrityError
 
 from library.domain.model import User, Book, Publisher, Author, Review
 
+
 def make_user():
     user = User("Andrew", "111")
     return user
+
 
 def insert_user(empty_session, values=None):
     new_name = "Andrew"
@@ -24,6 +26,7 @@ def insert_user(empty_session, values=None):
                                 {'user_name': new_name}).fetchone()
     return row[0]
 
+
 def insert_users(empty_session, values):
         for value in values:
             empty_session.execute('INSERT INTO users (user_name, password, pages_read) VALUES (:user_name, :password, 0)',
@@ -38,6 +41,7 @@ def make_book():
         123,"Book Test"
     )
     return books
+
 
 def insert_book(empty_session):
     empty_session.execute(
@@ -66,6 +70,7 @@ def insert_reviewed_article(empty_session):
     row = empty_session.execute('SELECT id from books').fetchone()
     return row[0]
 
+
 def test_loading_of_users(empty_session):
     users = list()
     users.append(("andrew", "1234"))
@@ -78,14 +83,15 @@ def test_loading_of_users(empty_session):
     ]
     assert empty_session.query(User).all() == expected
 
-#not workin
+
 def test_saving_of_users(empty_session):
-    user = make_user()
+    user = User("Andrew2", "Andrew22")
     empty_session.add(user)
     empty_session.commit()
 
     rows = list(empty_session.execute('SELECT user_name, password FROM users'))
-    assert rows == [("Andrew", "111")]
+    assert rows == [("andrew2", "Andrew22")]
+
 
 def test_saving_of_users_with_common_user_name(empty_session):
     insert_user(empty_session, ("Andrew", "1234"))
@@ -96,6 +102,7 @@ def test_saving_of_users_with_common_user_name(empty_session):
         empty_session.add(user)
         empty_session.commit()
 
+
 def test_loading_of_article(empty_session):
     book_key = insert_book(empty_session)
     expected_book = make_book()
@@ -103,6 +110,7 @@ def test_loading_of_article(empty_session):
 
     assert expected_book == fetched_book
     assert book_key == fetched_book.book_id
+
 
 def test_loading_of_commented_article(empty_session):
     insert_reviewed_article(empty_session)
