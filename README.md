@@ -41,6 +41,8 @@ After you have configured pytest as the testing tool for PyCharm (File - Setting
 Alternatively, from a terminal in the root folder of the project, you can also call 'python -m pytest tests' to run all the tests. PyCharm also provides a built-in terminal, which uses the configured virtual environment. 
 
 
+Ensure `TESTING = True` in `.env`.
+
 ## Execution of the web application
 
 **Running the Flask application**
@@ -51,6 +53,8 @@ From the project directory, and within the activated virtual environment (see *v
 $ flask run
 ```` 
 
+
+Ensure `TESTING = False` in `.env`.
 ## Data sources 
 
 The data in the excerpt files were downloaded from (Comic & Graphic):
