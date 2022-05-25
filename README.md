@@ -1,16 +1,19 @@
-# COMPSCI 235 Assignment 2 by srof384 & udea631
+# Book Store
 
 
 ## Description
 
-This repository contains an implementation of the domain model from Assignment 1. 
-It contains unit tests and integration tests which can be run through pytest. 
-It also contains a Flask application that renders content of a Book object instance from our domain model on various html pages.
-The Flask application allows users to browse all Book objects, Book objects with a specific Author, Publisher, release year or title.
+The "Book Store" Flask application renders the content of a Book object instance from the domain model on various HTML pages.
+The application provides the following functionality that allows users to:
+- browse all Book objects,
+- Book objects with a specific Author, Publisher, release year, or title.
+- User registration, login, and logout. 
 
-The Flask application allows users to register, login and logout of the application.
-When logged-in users can write reviews of Books, as well as view their personal reading list. User's can add Books to their reading list when browsing books
-and remove Books from their reading list page.
+When logged in, Users can write reviews of Books and add to, remove from, and view a personal reading list. Users can add Books to their reading list when browsing books and remove Books from their reading list page.
+
+The repository contains unit tests and integration tests which can be run through pytest
+
+This application was developed as part of the [Compsci 235 Software Development Methodologies](https://courseoutline.auckland.ac.nz/dco/course/COMPSCI/235/1215) coursework based on the grading requirements. The application was created in collaboration with [@Ubaidd](https://github.com/Ubaidd). The development of this application was split across two assignments, each of which was rewarded an A+ grade.
 
 
 ## Python version
